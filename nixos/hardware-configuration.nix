@@ -9,7 +9,7 @@
     ];
 
   boot.initrd.availableKernelModules = [ "thunderbolt" "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.kernelModules = [ "sg" ];
+  boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
@@ -18,15 +18,15 @@
       fsType = "ext4";
     };
 
+  fileSystems."/mnt/steam-library" =
+    { device = "/dev/disk/by-uuid/aedad605-e29d-4670-8c35-1455aee1d6aa";
+      fsType = "ext4";
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/C9C6-14B8";
       fsType = "vfat";
       options = [ "fmask=0077" "dmask=0077" ];
-    };
-
-  fileSystems."/mnt/steam-library" =
-    { device = "/dev/disk/by-uuid/aedad605-e29d-4670-8c35-1455aee1d6aa";
-      fsType = "ext4";
     };
 
   swapDevices = [ ];
