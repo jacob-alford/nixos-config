@@ -269,6 +269,7 @@
     prismlauncher
     discord
     vesktop
+    makemkv
   ];
 
   programs.mangohud = {
