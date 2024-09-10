@@ -180,9 +180,12 @@
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
         # nix-path = config.nix.nixPath;
+	
+	allowed-users = [ "@wheel" ];
       };
       # Opinionated: disable channels
       channel.enable = false;
+
 
       # Opinionated: make flake registry and nix path match flake inputs
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
