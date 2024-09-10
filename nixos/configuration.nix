@@ -25,6 +25,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  security.sudo.execWheelOnly = true;
+
   system.autoUpgrade = {
     enable = true;
     dates = "04:00";
