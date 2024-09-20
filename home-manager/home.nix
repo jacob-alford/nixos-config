@@ -298,6 +298,7 @@
       "breadcrumbs.enabled" = true;
       "workbench.sideBar.location" = "right";
       "workbench.statusBar.visible" = true;
+      "workbench.startupEditor" = "none";
       "workbench.tree.indent" = 22;
       "workbench.tree.renderIndentGuides" = "onHover";
 
