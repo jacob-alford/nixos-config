@@ -5,6 +5,7 @@
 , lib
 , config
 , pkgs
+, pkgs-unstable
 , ...
 }: {
   # You can import other NixOS modules here
@@ -125,6 +126,14 @@
     openFirewall = true;
   };
 
+  ### Ollama ###
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+    package = pkgs-unstable.ollama;
+  };
+
   #### Sound ####
   hardware.pulseaudio.enable = false;
 
@@ -182,12 +191,25 @@
         flake-registry = "";
         # Workaround for https://github.com/NixOS/nix/issues/9574
         # nix-path = config.nix.nixPath;
-	
-	allowed-users = [ "@wheel" ];
+
+        allowed-users = [ "@wheel" ];
       };
       # Opinionated: disable channels
       channel.enable = false;
 
+      # Garbage collection
+      gc = {
+        automatic = true;
+        dates = "weekly";
+        options = "--delete-older-than 30d";
+      };
+
+      # Optimization
+
+      optimise = {
+        automatic = true;
+        dates = [ "03:00" ];
+      };
 
       # Opinionated: make flake registry and nix path match flake inputs
       registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
