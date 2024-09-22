@@ -262,8 +262,8 @@
 
     fontconfig = {
       defaultFonts = {
-        serif = [ "times-newer-roman" ];
-        sansSerif = [ "helvetica-neue-lt-std" ];
+        serif = [ "noto-serif" ];
+        sansSerif = [ "noto-sans-meetei-mayek" ];
         monospace = [ "victor-mono" ];
       };
     };
