@@ -65,7 +65,7 @@
   services.displayManager.sddm = {
     enable = true;
     settings = {
-      Theme.Font = "helvetica-neue-lt-std";
+      Theme.Font = "noto-sans-meetei-mayek";
     };
   };
 
@@ -256,8 +256,6 @@
   fonts = {
     packages = with pkgs; [
       victor-mono
-      helvetica-neue-lt-std
-      times-newer-roman
     ];
 
     fontconfig = {
