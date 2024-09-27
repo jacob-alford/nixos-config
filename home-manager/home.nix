@@ -384,6 +384,10 @@
     userName = "Jacob Alford";
     userEmail = "github.scouting378@passmail.net";
     extraConfig = {
+      init = {
+        defaultBranch = "main";
+      };
+
       pull = {
         rebase = true;
       };
