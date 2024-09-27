@@ -63,8 +63,12 @@
       number = true;
       relativenumber = true;
 
+      signcolumn = "yes";
+
       tabstop = 2;
       shiftwidth = 2;
+      expandtab = true;
+      smarttab = true;
 
       cursorline = true;
     };
@@ -109,6 +113,32 @@
     };
 
     plugins = {
+      # --- not yet available in 24.05 ---
+      #web-devicons = {
+      #  enable = true;
+      #  settings = {
+      #    strict = true;
+      #    color_icons = true;
+      #    variant = "dark";
+      #  };
+      #};
+
+      #guess-indent = {
+      #  enable = true;
+      #  settings = {
+      #    auto_cmd = true;
+      #    on_space_options = {
+      #      expandtab = true;
+      #      shiftwidth = "detected";
+      #      softtabstop = "detected";
+      #      tabstop = "detected";
+      #    };
+      #    on_tab_options = {
+      #      expandtab = false;
+      #    };
+      #  };
+      #};
+
       lualine = {
         enable = true;
       };
@@ -220,6 +250,8 @@
 
       lsp = {
         enable = true;
+	# --- not available in 24.05 ---
+	# inlayHints = true;
         servers = {
           # Average webdev LSPs
           tsserver.enable = true; # TS/JS

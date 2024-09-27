@@ -118,12 +118,13 @@
 
   ### Printing ###
 
-  services.printing.enable = true;
+  # disabling temporarily for recent CUPS vuln
+  services.printing.enable = false;
 
   services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
+    enable = false;
+    # nssmdns4 = true;
+    # openFirewall = true;
   };
 
   ### Ollama ###
