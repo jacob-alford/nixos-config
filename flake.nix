@@ -13,7 +13,7 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     # 1Password shell plugins
-    _1password-shell-plugins.url = "github:1Password/shell-plugins";
+    # _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
     # stylix flake
     # stylix.url = "github:danth/stylix";

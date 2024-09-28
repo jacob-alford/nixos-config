@@ -13,7 +13,7 @@
 
     # You can also split up your configuration and import pieces of it here:
     # ./nvim.nix
-    inputs._1password-shell-plugins.hmModules.default
+    # inputs._1password-shell-plugins.hmModules.default
     inputs.catppuccin.homeManagerModules.catppuccin
     inputs.nixvim.homeManagerModules.nixvim
   ];
@@ -46,11 +46,12 @@
     homeDirectory = "/home/jacob";
   };
 
-  programs._1password-shell-plugins = {
-    enable = true;
+  # I'll just use ssh keys instead
+  # programs._1password-shell-plugins = {
+  #  enable = true;
 
-    plugins = with pkgs; [ gh ];
-  };
+  # plugins = with pkgs; [ gh ];
+  #};
 
   # Add stuff for your user as you see fit:
   # programs.neovim.enable = true;
