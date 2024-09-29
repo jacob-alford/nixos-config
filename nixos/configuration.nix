@@ -101,7 +101,7 @@
 
     # Turns off GPU when not in use, maybe try with new GPU
     powerManagement.finegrained = false;
-    
+
     # Disable for 560+ driver version?
     # open = false;
 
@@ -269,6 +269,7 @@
     via
     quickemu
     kdePackages.partitionmanager
+    catppuccin-kde
   ];
 
   services.udev.packages = with pkgs; [
