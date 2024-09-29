@@ -57,6 +57,11 @@
   # programs.neovim.enable = true;
   # programs.neovim.defaultEditor = true;
 
+  catppuccin = {
+    enable = true;
+    flavor = "frappe";
+  };
+
   programs.nixvim = {
     enable = true;
 
@@ -251,8 +256,8 @@
 
       lsp = {
         enable = true;
-	# --- not available in 24.05 ---
-	# inlayHints = true;
+        # --- not available in 24.05 ---
+        # inlayHints = true;
         servers = {
           # Average webdev LSPs
           tsserver.enable = true; # TS/JS
