@@ -67,6 +67,7 @@
     settings = {
       Theme.Font = "noto-sans-meetei-mayek";
     };
+    wayland.enable = true;
   };
 
   services.desktopManager.plasma6 = {
