@@ -198,6 +198,9 @@
               #  }
               # '';
             };
+            dxfmt = {
+              enable = true;
+            };
           };
 
           completion = {
