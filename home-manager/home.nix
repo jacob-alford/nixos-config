@@ -398,6 +398,7 @@
     discord
     vesktop
     makemkv
+    protonvpn-gui
   ];
 
   programs.mangohud = {
