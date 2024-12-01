@@ -62,6 +62,22 @@
     flavor = "frappe";
   };
 
+  dconf = {
+    enable = true;
+  };
+
+  # gtk.enable = true;
+
+  gtk.catppuccin = {
+    enable = true;
+    flavor = "frappe";
+    # gnomeShellTheme = true;
+    icon = {
+      enable = true;
+      flavor = "frappe";
+    };
+  };
+
   programs.nixvim = {
     enable = true;
 
@@ -120,14 +136,14 @@
 
     plugins = {
       # --- not yet available in 24.05 ---
-      #web-devicons = {
-      #  enable = true;
-      #  settings = {
-      #    strict = true;
-      #    color_icons = true;
-      #    variant = "dark";
-      #  };
-      #};
+      web-devicons = {
+        enable = true;
+        settings = {
+          strict = true;
+          color_icons = true;
+          variant = "dark";
+        };
+      };
 
       #guess-indent = {
       #  enable = true;
@@ -263,7 +279,7 @@
         # inlayHints = true;
         servers = {
           # Average webdev LSPs
-          tsserver.enable = true; # TS/JS
+          ts_ls.enable = true; # TS/JS
           cssls.enable = true; # CSS
           tailwindcss.enable = true; # TailwindCSS
           html.enable = true; # HTML
@@ -273,21 +289,21 @@
           vuels.enable = false; # Vue
           pyright.enable = true; # Python
           marksman.enable = true; # Markdown
-          nil-ls.enable = true; # Nix
+          nil_ls.enable = true; # Nix
           dockerls.enable = true; # Docker
           bashls.enable = true; # Bash
           clangd.enable = true; # C/C++
-          csharp-ls.enable = true; # C#
+          csharp_ls.enable = true; # C#
           yamlls.enable = true; # YAML
 
-          lua-ls = {
+          lua_ls = {
             # Lua
             enable = true;
             settings.telemetry.enable = false;
           };
 
           # Rust
-          rust-analyzer = {
+          rust_analyzer = {
             enable = true;
             installRustc = true;
             installCargo = true;
@@ -298,7 +314,6 @@
       alpha = {
         enable = true;
         theme = "dashboard";
-        iconsEnabled = true;
       };
     };
   };
@@ -400,6 +415,13 @@
     makemkv
     protonvpn-gui
   ];
+
+  programs.kitty = {
+    catppuccin = {
+      enable = true;
+      flavor = "frappe";
+    };
+  };
 
   programs.mangohud = {
     enable = true;

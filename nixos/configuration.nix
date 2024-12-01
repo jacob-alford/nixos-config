@@ -62,20 +62,81 @@
 
   services.xserver.enable = true;
 
-  services.displayManager.sddm = {
+  # services.displayManager.sddm = {
+  #  enable = true;
+  #  settings = {
+  #    Theme.Font = "noto-sans-meetei-mayek";
+  #  };
+  #  wayland.enable = true;
+  # };
+
+  services.xserver.desktopManager.gnome = {
     enable = true;
-    settings = {
-      Theme.Font = "noto-sans-meetei-mayek";
-    };
-    wayland.enable = true;
   };
 
-  services.desktopManager.plasma6 = {
+  services.xserver.displayManager.gdm = {
     enable = true;
-    # notoPackage = with pkgs; [
-    #  helvetica-neue-lt-std
-    # ];
+    wayland = true;
   };
+
+  environment.gnome.excludePackages = with pkgs; [
+    orca
+    evince
+    # file-roller
+    geary
+    gnome-disk-utility
+    # seahorse
+    # sushi
+    # sysprof
+    #
+    # gnome-shell-extensions
+    #
+    # adwaita-icon-theme
+    # nixos-background-info
+    gnome-backgrounds
+    # gnome-bluetooth
+    # gnome-color-manager
+    # gnome-control-center
+    # gnome-shell-extensions
+    gnome-tour # GNOME Shell detects the .desktop file on first log-in.
+    gnome-user-docs
+    # glib # for gsettings program
+    # gnome-menus
+    # gtk3.out # for gtk-launch program
+    # xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
+    # xdg-user-dirs-gtk # Used to create the default bookmarks
+    #
+    baobab
+    epiphany
+    gnome-text-editor
+    gnome-calculator
+    gnome-calendar
+    gnome-characters
+    # gnome-clocks
+    gnome-console
+    gnome-contacts
+    gnome-font-viewer
+    gnome-logs
+    gnome-maps
+    gnome-music
+    # gnome-system-monitor
+    gnome-weather
+    # loupe
+    # nautilus
+    gnome-connections
+    simple-scan
+    snapshot
+    totem
+    yelp
+    gnome-software
+  ];
+
+  #  services.desktopManager.plasma6 = {
+  #    enable = true;
+  # notoPackage = with pkgs; [
+  #  helvetica-neue-lt-std
+  # ];
+  #  };
 
   services.xserver.xkb = {
     layout = "us";
@@ -84,9 +145,9 @@
 
   ### Grahpics / Gaming ###
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
@@ -221,6 +282,9 @@
 
   # FIXME: Add the rest of your current configuration
 
+  # For gnome :/
+  programs.dconf.enable = true;
+
   programs.firefox.enable = true;
 
   programs.steam.enable = true;
@@ -249,12 +313,15 @@
     zsh
     via
     quickemu
-    kdePackages.partitionmanager
-    catppuccin-kde
+    # kdePackages.partitionmanager
+    # catppuccin-kde
+    adwaita-icon-theme
+    gnomeExtensions.appindicator
   ];
 
   services.udev.packages = with pkgs; [
     via
+    gnome-settings-daemon
   ];
 
   fonts = {
