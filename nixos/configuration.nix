@@ -110,25 +110,25 @@
     epiphany
     gnome-text-editor
     gnome-calculator
-    gnome-calendar
-    gnome-characters
+    # gnome-calendar
+    # gnome-characters
     # gnome-clocks
-    gnome-console
+    # gnome-console
     gnome-contacts
-    gnome-font-viewer
+    # gnome-font-viewer
     gnome-logs
     gnome-maps
     gnome-music
     # gnome-system-monitor
-    gnome-weather
+    # gnome-weather
     # loupe
     # nautilus
-    gnome-connections
+    # gnome-connections
     simple-scan
-    snapshot
+    # snapshot
     totem
     yelp
-    gnome-software
+    # gnome-software
   ];
 
   #  services.desktopManager.plasma6 = {

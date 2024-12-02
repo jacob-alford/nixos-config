@@ -78,6 +78,11 @@
     };
   };
 
+  catppuccin.pointerCursor = {
+    enable = true;
+    flavor = "frappe";
+  };
+
   programs.nixvim = {
     enable = true;
 
