@@ -37,7 +37,7 @@
       "nixpkgs"
       # "--commit-lock-file"
     ];
-    allowReboot = true;
+    allowReboot = false;
   };
 
   networking.hostName = "nixos";
