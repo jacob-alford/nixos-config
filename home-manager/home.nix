@@ -419,6 +419,7 @@
     vesktop
     makemkv
     protonvpn-gui
+    runelite
   ];
 
   programs.kitty = {
