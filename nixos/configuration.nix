@@ -197,9 +197,10 @@
     acceleration = "cuda";
     package = pkgs-unstable.ollama;
 
-    environmentVariables = {
-      OLLAMA_HOST = "0.0.0.0:11434";
-    };
+    openFirewall = true;
+    
+    host = "0.0.0.0";
+
   };
 
   #### Sound ####

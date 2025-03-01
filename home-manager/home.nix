@@ -420,6 +420,7 @@
     makemkv
     protonvpn-gui
     runelite
+    vivaldi
   ];
 
   programs.kitty = {
