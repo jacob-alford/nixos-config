@@ -28,6 +28,12 @@
 
   security.sudo.execWheelOnly = true;
 
+  networking.firewall = {
+    enable = true;
+    # PORT for Whisper and Pipe (Wyoming)
+    allowedTCPPorts = [ 10300 10200 ];
+  };
+
   system.autoUpgrade = {
     enable = true;
     dates = "04:00";
@@ -170,12 +176,18 @@
 
     # package = config.boot.kernelPackages.nvidiaPackages.beta;
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "570.86.16";
-      sha256_64bit = "sha256-RWPqS7ZUJH9JEAWlfHLGdqrNlavhaR1xMyzs8lJhy9U=";
-      sha256_aarch64 = "sha256-RiO2njJ+z0DYBo/1DKa9GmAjFgZFfQ1/1Ga+vXG87vA=";
-      openSha256 = "sha256-DuVNA63+pJ8IB7Tw2gM4HbwlOh1bcDg2AN2mbEU9VPE=";
-      settingsSha256 = "sha256-9rtqh64TyhDF5fFAYiWl3oDHzKJqyOW3abpcf2iNRT8=";
-      persistencedSha256 = "sha256-3mp9X/oV8o2TH9720NnoXROxQ4g98nNee+DucXpQy3w=";
+      version = "570.133.07";
+      sha256_64bit = "sha256-LUPmTFgb5e9VTemIixqpADfvbUX1QoTT2dztwI3E3CY=";
+      sha256_aarch64 = "sha256-yTovUno/1TkakemRlNpNB91U+V04ACTMwPEhDok7jI0=";
+      openSha256 = "sha256-9l8N83Spj0MccA8+8R1uqiXBS0Ag4JrLPjrU3TaXHnM=";
+      settingsSha256 = "sha256-XMk+FvTlGpMquM8aE8kgYK2PIEszUZD2+Zmj2OpYrzU=";
+      persistencedSha256 = "sha256-G1V7JtHQbfnSRfVjz/LE2fYTlh9okpCbE4dfX9oYSg8=";
+      # version = "570.86.16";
+      # sha256_64bit = "sha256-RWPqS7ZUJH9JEAWlfHLGdqrNlavhaR1xMyzs8lJhy9U=";
+      # sha256_aarch64 = "sha256-RiO2njJ+z0DYBo/1DKa9GmAjFgZFfQ1/1Ga+vXG87vA=";
+      # openSha256 = "sha256-DuVNA63+pJ8IB7Tw2gM4HbwlOh1bcDg2AN2mbEU9VPE=";
+      # settingsSha256 = "sha256-9rtqh64TyhDF5fFAYiWl3oDHzKJqyOW3abpcf2iNRT8=";
+      # persistencedSha256 = "sha256-3mp9X/oV8o2TH9720NnoXROxQ4g98nNee+DucXpQy3w=";
     };
   };
 
@@ -198,9 +210,29 @@
     package = pkgs-unstable.ollama;
 
     openFirewall = true;
-    
-    host = "0.0.0.0";
 
+    host = "0.0.0.0";
+  };
+
+  ### Whisper Voice Recognition ###
+
+  services.wyoming = {
+    faster-whisper.servers = {
+      home = {
+        enable = true;
+        uri = "tcp://0.0.0.0:10300";
+        language = "en";
+        device = "cpu";
+      };
+    };
+
+    piper = {
+      servers.home = {
+        enable = true;
+        voice = "en_GB-southern_english_female-low";
+        uri = "tcp://0.0.0.0:10200";
+      };
+    };
   };
 
   #### Sound ####
@@ -322,6 +354,8 @@
     # catppuccin-kde
     adwaita-icon-theme
     gnomeExtensions.appindicator
+    # openai-whisper
+    # piper-tts
   ];
 
   services.udev.packages = with pkgs; [
