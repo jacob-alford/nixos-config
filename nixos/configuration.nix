@@ -48,6 +48,8 @@
 
   networking.hostName = "nixos";
 
+  services.tailscale.enable = true;
+
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Denver";
@@ -374,9 +376,12 @@
   fonts = {
     packages = with pkgs; [
       victor-mono
+      noto-fonts
+      noto-fonts-emoji
     ];
 
     fontconfig = {
+      useEmbeddedBitmaps = true;
       defaultFonts = {
         serif = [ "noto-serif" ];
         sansSerif = [ "noto-sans-meetei-mayek" ];

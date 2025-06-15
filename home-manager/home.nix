@@ -420,7 +420,7 @@
     vesktop
     makemkv
     protonvpn-gui
-    runelite
+    bolt-launcher
     vivaldi
   ];
 
