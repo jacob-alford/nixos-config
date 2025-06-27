@@ -50,6 +50,16 @@
 
   services.tailscale.enable = true;
 
+  services.caddy = {
+    enable = true;
+    #package = pkgs.caddy.withPlugins {
+    #  plugins = [ "github.com/tailscale/caddy-tailscale" ];
+    #};
+    virtualHosts."https://nixos.neko-bicolor.ts.net".extraConfig = ''
+      respond "Hello, world!"
+    '';
+  };
+
   networking.networkmanager.enable = true;
 
   time.timeZone = "America/Denver";
