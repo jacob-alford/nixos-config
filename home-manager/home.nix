@@ -417,11 +417,11 @@
     kitty
     prismlauncher
     discord
-    vesktop
     makemkv
     protonvpn-gui
     bolt-launcher
-    vivaldi
+    mullvad-browser
+    yubikey-manager
   ];
 
   programs.kitty = {

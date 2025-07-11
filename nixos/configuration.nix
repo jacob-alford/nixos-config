@@ -28,6 +28,8 @@
 
   security.sudo.execWheelOnly = true;
 
+  security.pki.certificateFiles = [ ./certs/alford-root.crt ];
+
   networking.firewall = {
     enable = true;
     # PORT for Whisper and Pipe (Wyoming)
@@ -49,16 +51,6 @@
   networking.hostName = "nixos";
 
   services.tailscale.enable = true;
-
-  services.caddy = {
-    enable = true;
-    #package = pkgs.caddy.withPlugins {
-    #  plugins = [ "github.com/tailscale/caddy-tailscale" ];
-    #};
-    virtualHosts."https://nixos.neko-bicolor.ts.net".extraConfig = ''
-      respond "Hello, world!"
-    '';
-  };
 
   networking.networkmanager.enable = true;
 
@@ -216,10 +208,13 @@
   # disabling temporarily for recent CUPS vuln
   services.printing.enable = true;
 
+  ### Yubikey Daemon ###
+  services.pcscd.enable = true;
+
   services.avahi = {
-    enable = false;
-    # nssmdns4 = true;
-    # openFirewall = true;
+    enable = true;
+    nssmdns4 = true;
+    openFirewall = true;
   };
 
   ### Ollama ###
@@ -374,6 +369,7 @@
     # catppuccin-kde
     adwaita-icon-theme
     gnomeExtensions.appindicator
+    openssl
     # openai-whisper
     # piper-tts
   ];
