@@ -28,7 +28,7 @@
 
   security.sudo.execWheelOnly = true;
 
-  security.pki.certificateFiles = [ ./certs/alford-root.crt ];
+  security.pki.certificateFiles = [ ../certs/alford-root.crt ];
 
   networking.firewall = {
     enable = true;
@@ -91,10 +91,10 @@
 
   environment.gnome.excludePackages = with pkgs; [
     orca
-    evince
+    # evince
     # file-roller
     geary
-    gnome-disk-utility
+    # gnome-disk-utility
     # seahorse
     # sushi
     # sysprof
@@ -116,7 +116,7 @@
     # xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
     # xdg-user-dirs-gtk # Used to create the default bookmarks
     #
-    baobab
+    # baobab
     epiphany
     gnome-text-editor
     gnome-calculator
@@ -126,7 +126,7 @@
     # gnome-console
     gnome-contacts
     # gnome-font-viewer
-    gnome-logs
+    # gnome-logs
     gnome-maps
     gnome-music
     # gnome-system-monitor
@@ -237,7 +237,8 @@
         enable = true;
         uri = "tcp://0.0.0.0:10300";
         language = "en";
-        device = "cpu";
+        device = "cuda";
+        model = "distil-large-v3";
       };
     };
 
@@ -248,6 +249,31 @@
         uri = "tcp://0.0.0.0:10200";
       };
     };
+  };
+
+  ### Minecraft ###
+  services.minecraft-server = {
+    enable = true;
+    eula = true;
+    openFirewall = true; # Opens the port the server is running on (by default 25565 but in this case 43000)
+    declarative = true;
+    whitelist = {
+      # This is a mapping from Minecraft usernames to UUIDs. You can use https://mcuuid.net/ to get a Minecraft UUID for a username
+      jacob_alford = "dfb56ab8-5441-4165-be4f-27f8e6e31ac4";
+      GreenBeanBoi = "3f66f523-9fb1-4fc9-af4a-1bdddcc50f9a";
+      squish37 = "3f66f523-9fb1-4fc9-af4a-1bdddcc50f9a";
+    };
+    serverProperties = {
+      server-port = 25565;
+      difficulty = 2;
+      gamemode = 0;
+      max-players = 5;
+      motd = "§dThe Best§r§1 §r§5§kabcdefg§r§1 server§r";
+      white-list = true;
+      allow-cheats = false;
+      enforce-whitelist = true;
+    };
+    package = pkgs.papermcServers.papermc-1_21_4;
   };
 
   #### Sound ####
@@ -281,6 +307,12 @@
       #     patches = [ ./change-hello-to-hi.patch ];
       #   });
       # })
+      (self: super: {
+        ctranslate2 = super.ctranslate2.override {
+          withCUDA = true;
+          withCuDNN = true;
+        };
+      })
     ];
     # Configure your nixpkgs instance
     config = {
