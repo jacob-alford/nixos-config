@@ -421,7 +421,9 @@
     protonvpn-gui
     bolt-launcher
     mullvad-browser
+    brave
     yubikey-manager
+    finamp
   ];
 
   programs.kitty = {
@@ -522,6 +524,7 @@
 
     shellAliases = {
       gh = "op plugin run -- gh";
+      gnome_restart = "sudo systemctl restart display-manager.service";
     };
   };
 
