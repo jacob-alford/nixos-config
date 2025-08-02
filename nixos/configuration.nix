@@ -438,15 +438,15 @@
     };
   };
 
-  sops.defaultSopsFile = ./secrets/nixos.yaml;
-  sops.age.keyFile = "/home/jacob/.config/sops/age/key.txt";
-  sops.secrets.smb = {
+  sops.defaultSopsFile = ../secrets/nixos.yaml;
+  sops.age.keyFile = "/home/jacob/.config/sops/age/keys.txt";
+  sops.secrets.smb_passphrase = {
     owner = "root";
   };
   sops.templates."smb-creds" = {
     content = ''
       username=nixos
-      password=${config.sops.placeholder.smb}
+      password=${config.sops.placeholder.smb_passphrase}
     '';
     owner = "root";
   };
