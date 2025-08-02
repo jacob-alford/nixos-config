@@ -452,7 +452,7 @@
   };
 
   fileSystems."/mnt/unas-nixos" = {
-    device = "//nas.plato-splunk.media/NixOS";
+    device = "//10.10.0.251/Personal-Drive";
     fsType = "cifs";
     options =
       let
