@@ -451,16 +451,16 @@
     owner = "root";
   };
 
-  # fileSystems."/mnt/unas-nixos" = {
-  #   device = "//nas.plato-splunk.media/NixOS";
-  #   fsType = "cifs";
-  #   options =
-  #     let
-  #       # this line prevents hanging on network split
-  #       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
-  #     in
-  #     [ "${automount_opts},credentials=/etc/nixos/smb-secrets,uid=${toString config.users.users.jacob.uid},gid=${toString config.users.groups.jacob.gid}" ];
-  # };
+  fileSystems."/mnt/unas-nixos" = {
+    device = "//nas.plato-splunk.media/NixOS";
+    fsType = "cifs";
+    options =
+      let
+        # this line prevents hanging on network split
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+      in
+      [ "${automount_opts},credentials=${config.sops.templates."smb-creds".path},uid=${toString config.users.users.jacob.uid}" ];
+  };
 
   ### Stylix ###
 
