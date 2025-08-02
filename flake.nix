@@ -12,6 +12,10 @@
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
+    # SOPS-Nix
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     # 1Password shell plugins
     # _1password-shell-plugins.url = "github:1Password/shell-plugins";
 
@@ -35,6 +39,7 @@
     , catppuccin
     , nixvim
     , home-manager
+    , sops-nix
     , ...
     } @ inputs:
     let
@@ -59,6 +64,7 @@
             catppuccin.nixosModules.catppuccin
             nixvim.nixosModules.nixvim
             ./nixos/configuration.nix
+            sops-nix.nixosModules.sops
           ];
         };
       };

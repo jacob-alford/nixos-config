@@ -409,12 +409,15 @@
     adwaita-icon-theme
     gnomeExtensions.appindicator
     openssl
+    # CIFS (SMB) client
+    cifs-utils
     # openai-whisper
     # piper-tts
   ];
 
   services.udev.packages = with pkgs; [
     via
+    qmk-udev-rules
     gnome-settings-daemon
   ];
 
@@ -434,6 +437,30 @@
       };
     };
   };
+
+  sops.defaultSopsFile = ./secrets/nixos.yaml;
+  sops.age.keyFile = "/home/jacob/.config/sops/age/key.txt";
+  sops.secrets.smb = {
+    owner = "root";
+  };
+  sops.templates."smb-creds" = {
+    content = ''
+      username=nixos
+      password=${config.sops.placeholder.smb}
+    '';
+    owner = "root";
+  };
+
+  # fileSystems."/mnt/unas-nixos" = {
+  #   device = "//nas.plato-splunk.media/NixOS";
+  #   fsType = "cifs";
+  #   options =
+  #     let
+  #       # this line prevents hanging on network split
+  #       automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
+  #     in
+  #     [ "${automount_opts},credentials=/etc/nixos/smb-secrets,uid=${toString config.users.users.jacob.uid},gid=${toString config.users.groups.jacob.gid}" ];
+  # };
 
   ### Stylix ###
 

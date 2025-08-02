@@ -421,7 +421,6 @@
     protonvpn-gui
     bolt-launcher
     mullvad-browser
-    brave
     yubikey-manager
     finamp
   ];
