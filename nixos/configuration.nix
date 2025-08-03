@@ -291,6 +291,32 @@
 
   security.rtkit.enable = true;
 
+  ### Backups ###
+  security.wrappers.restic = {
+    program = "restic";
+    source = "${pkgs.restic.out}/bin/restic";
+    owner = "restic";
+    group = "users";
+    permissions = "u=rwx,g=,o=";
+    capabilities = "cap_dac_read_search=+ep";
+    # setuid = true;
+  };
+
+  services.restic.backups.minecraft = {
+    user = "restic";
+    repository = "/mnt/backups/minecraft-backup";
+    initialize = true;
+    passwordFile = config.sops.templates."minecraft-backup-passphrase".path;
+    paths = [ "/var/lib/minecraft" ];
+    timerConfig = {
+      OnCalendar = "Mon..Sun *-*-* 06,12,18:00:00";
+      Persistent = true;
+    };
+    package = pkgs.writeShellScriptBin "restic" ''
+      exec /run/wrappers/bin/restic "$@"
+    '';
+  };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -411,6 +437,8 @@
     openssl
     # CIFS (SMB) client
     cifs-utils
+    # Backups
+    restic
     # openai-whisper
     # piper-tts
   ];
@@ -443,6 +471,9 @@
   sops.secrets.smb_passphrase = {
     owner = "root";
   };
+  sops.secrets.minecraft_backup_passphrase = {
+    owner = "restic";
+  };
   sops.templates."smb-creds" = {
     content = ''
       username=nixos
@@ -450,8 +481,12 @@
     '';
     owner = "root";
   };
+  sops.templates."minecraft-backup-passphrase" = {
+    content = config.sops.placeholder.minecraft_backup_passphrase;
+    owner = "restic";
+  };
 
-  fileSystems."/mnt/unas-nixos" = {
+  fileSystems."/mnt/backups" = {
     device = "//10.10.0.251/Personal-Drive";
     fsType = "cifs";
     options =
@@ -459,8 +494,20 @@
         # this line prevents hanging on network split
         automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,user,users";
       in
-      [ "${automount_opts},credentials=${config.sops.templates."smb-creds".path},uid=${toString config.users.users.jacob.uid}" ];
+      [ "${automount_opts},credentials=${config.sops.templates."smb-creds".path},uid=1001,gid=${toString config.users.groups.users.gid}" ];
   };
+
+  ### Add SUID to CIFS share
+
+  security.wrappers."mount.cifs" = {
+    program = "mount.cifs";
+    source = "${lib.getBin pkgs.cifs-utils}/bin/mount.cifs";
+    owner = "root";
+    group = "root";
+    setuid = true;
+  };
+
+  ### Backup Config ###
 
   ### Stylix ###
 
@@ -500,6 +547,9 @@
         kdePackages.kate
       ];
       shell = pkgs.zsh;
+    };
+    restic = {
+      isNormalUser = true;
     };
   };
 
