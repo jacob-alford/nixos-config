@@ -337,6 +337,7 @@
           davidanson.vscode-markdownlint
           elmtooling.elm-ls-vscode
           unifiedjs.vscode-mdx
+          jnoortheen.nix-ide
         ];
         userSettings = {
           "editor.fontFamily" = "Victor Mono";
