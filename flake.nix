@@ -61,6 +61,10 @@
 
       darwinConfigurations = {
         mini = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+
           modules = [
             ./hosts/mini
             sops-nix.darwinModules.sops
