@@ -3,13 +3,13 @@
 , lib
 , config
 , pkgs
-, pkgs-unstable
 , ...
 }: {
   programs.zsh = {
     enable = true;
     enableCompletion = true;
-    enableAutosuggestions = true;
+    # Didn't make it into 25.05
+    # enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
 
     # oh-my-zsh = {
