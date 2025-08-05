@@ -46,8 +46,7 @@
       inherit (self) outputs;
     in
     {
-      # NixOS configuration entrypoint
-      # Available through 'nixos-rebuild --flake .#your-hostname'
+      # nixos-rebuild --flake .#nixos
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           specialArgs = {
@@ -69,16 +68,12 @@
         };
       };
 
-      ### Commenting out to use as a NixOS module ###
-
-      # Standalone home-manager configuration entrypoint
-      # Available through 'home-manager --flake .#your-username@your-hostname'
+      # home-manager --flake .#jacob@nixos
       homeConfigurations = {
         "jacob@nixos" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = nixpkgs.legacyPackages.x86_64-linux; 
           extraSpecialArgs = { inherit inputs outputs; };
-          # > Our main home-manager configuration file <
-          modules = [ ./home-manager/home.nix ];
+          modules = [ ./home/jacob-nixos ];
         };
       };
     };
