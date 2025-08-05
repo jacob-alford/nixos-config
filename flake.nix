@@ -2,30 +2,20 @@
   description = "Jacob Alford's NixOS config";
 
   inputs = {
-    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-
-    # Nixpkgs unstable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Home manager
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # SOPS-Nix
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # 1Password shell plugins
-    # _1password-shell-plugins.url = "github:1Password/shell-plugins";
-
-    # stylix flake
-    # stylix.url = "github:danth/stylix";
-
-    # catppuccin flake
     catppuccin.url = "github:catppuccin/nix";
 
-    # nixvim flake
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,14 +30,14 @@
     , nixvim
     , home-manager
     , sops-nix
+    , nix-darwin
     , ...
     } @ inputs:
     let
       inherit (self) outputs;
     in
     {
-      # NixOS configuration entrypoint
-      # Available through 'nixos-rebuild --flake .#your-hostname'
+      # nixos-rebuild --flake .#nixos
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
           specialArgs = {
@@ -69,16 +59,26 @@
         };
       };
 
-      ### Commenting out to use as a NixOS module ###
+      darwinConfigurations = {
+        mini = nix-darwin.lib.darwinSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
 
-      # Standalone home-manager configuration entrypoint
-      # Available through 'home-manager --flake .#your-username@your-hostname'
+          modules = [
+            ./hosts/mini
+            sops-nix.darwinModules.sops
+            nixvim.nixDarwinModules.nixvim
+          ];
+        };
+      };
+
+      # home-manager --flake .#jacob@nixos
       homeConfigurations = {
         "jacob@nixos" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; # Home-manager requires 'pkgs' instance
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          # > Our main home-manager configuration file <
-          modules = [ ./home-manager/home.nix ];
+          modules = [ ./home/jacob-nixos ];
         };
       };
     };

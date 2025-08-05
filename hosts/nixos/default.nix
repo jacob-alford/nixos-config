@@ -8,6 +8,7 @@
 }: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    ../../shared/nix.nix
     ./services
     ./filesystems.nix
     ./hardware.nix
@@ -40,46 +41,10 @@
     };
   };
 
-  nix =
-    let
-      flakeInputs = lib.filterAttrs (_: lib.isType "flake") inputs;
-    in
-    {
-      settings = {
-        experimental-features = "nix-command flakes";
-        # Opinionated: disable global registry
-        # flake-registry = "";
-        # Workaround for https://github.com/NixOS/nix/issues/9574
-        # nix-path = config.nix.nixPath;
-
-        allowed-users = [ "@wheel" ];
-      };
-      # Opinionated: disable channels
-      channel.enable = false;
-
-      # Garbage collection
-      gc = {
-        automatic = true;
-        dates = "weekly";
-        options = "--delete-older-than 30d";
-      };
-
-      # Optimization
-
-      optimise = {
-        automatic = true;
-        dates = [ "03:00" ];
-      };
-
-      # Opinionated: make flake registry and nix path match flake inputs
-      registry = lib.mapAttrs (_: flake: { inherit flake; }) flakeInputs;
-      nixPath = lib.mapAttrsToList (n: _: "${n}=flake:${n}") flakeInputs;
-    };
-
   home-manager = {
     extraSpecialArgs = { inherit inputs outputs; };
     users = {
-      jacob = import ../../home-manager/home.nix;
+      jacob = import ../../home/jacob-nixos;
     };
   };
 
