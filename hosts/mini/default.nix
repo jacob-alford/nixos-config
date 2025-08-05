@@ -6,7 +6,7 @@
 , ...
 }: {
   imports = [
-    ../../shared/nix.nix
+    ../../shared/nix-darwin.nix
     ../../shared/programs/nixvim.nix
     ./programs.nix
     ./services.nix
