@@ -221,7 +221,8 @@
           dockerls.enable = true; # Docker
           bashls.enable = true; # Bash
           clangd.enable = true; # C/C++
-          csharp_ls.enable = true; # C#
+          # csharp_ls not good for darwin
+          # csharp_ls.enable = true; # C#
           yamlls.enable = true; # YAML
 
           lua_ls = {
