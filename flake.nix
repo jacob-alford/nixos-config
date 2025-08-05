@@ -2,30 +2,20 @@
   description = "Jacob Alford's NixOS config";
 
   inputs = {
-    # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-
-    # Nixpkgs unstable
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Home manager
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # SOPS-Nix
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # 1Password shell plugins
-    # _1password-shell-plugins.url = "github:1Password/shell-plugins";
-
-    # stylix flake
-    # stylix.url = "github:danth/stylix";
-
-    # catppuccin flake
     catppuccin.url = "github:catppuccin/nix";
 
-    # nixvim flake
     nixvim = {
       url = "github:nix-community/nixvim/nixos-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -40,6 +30,7 @@
     , nixvim
     , home-manager
     , sops-nix
+    , nix-darwin
     , ...
     } @ inputs:
     let
@@ -68,10 +59,20 @@
         };
       };
 
+      darwinConfigurations = {
+        mini = nix-darwin.lib.darwinSystem {
+          modules = [
+            ./hosts/mini
+            sops-nix.darwinModules.sops
+            nixvim.nixDarwinModules.nixvim
+          ];
+        };
+      };
+
       # home-manager --flake .#jacob@nixos
       homeConfigurations = {
         "jacob@nixos" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux; 
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
           modules = [ ./home/jacob-nixos ];
         };
