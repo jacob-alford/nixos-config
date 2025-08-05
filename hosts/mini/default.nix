@@ -7,8 +7,8 @@
 }: {
   imports = [
     ../../shared/nix.nix
-    ../../shared/programs/zsh.nix
     ../../shared/programs/nixvim.nix
+    ./programs.nix
     ./services.nix
     ./sops.nix
   ];
