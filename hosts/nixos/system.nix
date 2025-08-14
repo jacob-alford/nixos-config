@@ -8,7 +8,7 @@
 }: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
+  
   system.autoUpgrade = {
     enable = true;
     dates = "04:00";
@@ -66,21 +66,4 @@
     # environment.extraInit option.
     unset -v SSH_ASKPASS
   '';
-
-  environment.gnome.excludePackages = with pkgs; [
-    orca
-    geary
-    gnome-backgrounds
-    gnome-tour # GNOME Shell detects the .desktop file on first log-in.
-    gnome-user-docs
-    epiphany
-    gnome-text-editor
-    gnome-calculator
-    gnome-contacts
-    gnome-maps
-    gnome-music
-    simple-scan
-    totem
-    yelp
-  ];
 }

@@ -16,10 +16,7 @@
 
     catppuccin.url = "github:catppuccin/nix";
 
-    nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixvim.url = "github:nix-community/nixvim/nixos-25.05";
   };
 
   outputs =
@@ -51,6 +48,7 @@
 
           # > Our main nixos configuration file <
           modules = [
+            home-manager.nixosModules.home-manager
             catppuccin.nixosModules.catppuccin
             nixvim.nixosModules.nixvim
             ./hosts/nixos
@@ -78,7 +76,9 @@
         "jacob@nixos" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs outputs; };
-          modules = [ ./home/jacob-nixos ];
+          modules = [
+            ./home/jacob-nixos
+          ];
         };
       };
     };

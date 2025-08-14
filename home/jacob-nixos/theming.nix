@@ -7,15 +7,7 @@
   catppuccin = {
     enable = true;
     flavor = "frappe";
-  };
-
-  gtk.catppuccin = {
-    enable = true;
-    flavor = "frappe";
-    # gnomeShellTheme = true;
-    icon = {
-      enable = true;
-      flavor = "frappe";
-    };
+    starship.enable = true; 
+    kitty.enable = true; 
   };
 }

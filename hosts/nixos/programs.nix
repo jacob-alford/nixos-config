@@ -33,6 +33,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
+    home-manager
     vim
     geekbench
     git

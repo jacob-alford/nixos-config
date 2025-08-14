@@ -18,12 +18,7 @@
     finamp
   ];
 
-  programs.kitty = {
-    catppuccin = {
-      enable = true;
-      flavor = "frappe";
-    };
-  };
+  programs.kitty.enable = true;
 
   programs.mangohud = {
     enable = true;
@@ -54,9 +49,5 @@
   programs.starship = {
     enable = true;
     enableZshIntegration = true;
-    catppuccin = {
-      enable = true;
-      flavor = "frappe";
-    };
   };
 }

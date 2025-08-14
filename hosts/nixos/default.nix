@@ -29,7 +29,7 @@
         };
       })
     ];
-    
+
     config = {
       allowUnfree = true;
 
@@ -38,13 +38,6 @@
           "1password-gui"
           "1password"
         ];
-    };
-  };
-
-  home-manager = {
-    extraSpecialArgs = { inherit inputs outputs; };
-    users = {
-      jacob = import ../../home/jacob-nixos;
     };
   };
 
