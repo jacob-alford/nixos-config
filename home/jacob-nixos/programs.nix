@@ -2,6 +2,7 @@
 , lib
 , config
 , pkgs
+, pkgs-unstable
 , ...
 }: {
   home.packages = with pkgs; [
@@ -16,6 +17,7 @@
     mullvad-browser
     yubikey-manager
     finamp
+    freecad-wayland
   ];
 
   programs.kitty.enable = true;
