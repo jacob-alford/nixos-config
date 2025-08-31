@@ -18,10 +18,13 @@
     yubikey-manager
     finamp
     freecad-wayland
+    httpie
+    dmidecode
+    popsicle
   ];
-
+  
   programs.kitty.enable = true;
-
+  
   programs.mangohud = {
     enable = true;
     settings = {

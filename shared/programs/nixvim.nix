@@ -7,6 +7,12 @@
   programs.nixvim = {
     enable = true;
 
+    nixpkgs = {
+      config = {
+        allowUnfree = true;
+      };
+    };
+
     globalOpts = {
       number = true;
       relativenumber = true;
@@ -70,6 +76,8 @@
           variant = "dark";
         };
       };
+
+      copilot-vim.enable = true;
 
       #guess-indent = {
       #  enable = true;
