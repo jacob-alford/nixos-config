@@ -4,9 +4,8 @@
 , pkgs
 , ...
 }: {
-  catppuccin = {
-    enable = true;
-    flavor = "frappe";
-    starship.enable = true; 
-  };
+  # catppuccin = {
+  #  enable = true;
+  #  flavor = "frappe";
+  # };
 }
