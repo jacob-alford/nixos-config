@@ -95,6 +95,17 @@
             ./home/jacob-nixos
           ];
         };
+
+        "jacob@augustus" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+          };
+          modules = [
+            ./home/jacob-augustus
+          ];
+        };
       };
     };
 }
