@@ -6,6 +6,10 @@
 , pkgs-unstable
 , ...
 }: {
+  imports = [
+    ./it-tools.nix
+  ];
+
   services.getty.autologinUser = "jacob";
 
   services.tailscale.enable = true;
