@@ -46,13 +46,25 @@
             };
           };
 
-          # > Our main nixos configuration file <
           modules = [
             home-manager.nixosModules.home-manager
             catppuccin.nixosModules.catppuccin
             nixvim.nixosModules.nixvim
             ./hosts/nixos
             sops-nix.nixosModules.sops
+          ];
+        };
+
+        augustus = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+          };
+
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/augustus
+            sops-nix.nixosModules.sops
+            nixvim.nixosModules.nixvim
           ];
         };
       };
