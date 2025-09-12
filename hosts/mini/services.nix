@@ -11,7 +11,7 @@ let
       "github.com/tailscale/caddy-tailscale@v0.0.0-20250508175905-642f61fea3cc"
       "github.com/mholt/caddy-l4@v0.0.0-20250530154005-4d3c80e89c5f"
     ];
-    hash = "sha256-aGscfJ118kHyeWio5mwJQgieSiurG0mP3w/bJ+yn2us=";
+    hash = "sha256-dS/vz9jgs6l9ZeFGaFvHPC4HwciOGNeGbO7ad+qmQMc=";
   };
 in
 {
