@@ -9,6 +9,7 @@
   imports = [
     ./it-tools.nix
     ./caddy.nix
+    ./kanidm.nix
   ];
 
   services.getty.autologinUser = "jacob";
