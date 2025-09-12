@@ -57,4 +57,12 @@ in
       reverse_proxy ${config.services.kanidm.provision.instanceUrl}
     '';
   };
+
+  security.acme.certs."idm.plato-splunk.media" = {
+    webroot = "https://ca.plato-splunk.media/acme/acme/directory";
+    domain = "idm.plato-splunk.media";
+    extraDomainNames = [ "ldap.plato-splunk.media" ];
+    group = "idm";
+    reloadServices = [ "caddy.service" "kanidm.service" ];
+  };
 }
