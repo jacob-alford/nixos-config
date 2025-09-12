@@ -8,6 +8,7 @@
 }: {
   imports = [
     ./it-tools.nix
+    ./caddy.nix
   ];
 
   services.getty.autologinUser = "jacob";
