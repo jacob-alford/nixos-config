@@ -33,6 +33,9 @@
   sops.secrets."dev-tools" = {
     owner = "jacob";
   };
+  sops.secrets."ca" = {
+    owner = "jacob";
+  };
 
   sops.templates."tailscale.env" = {
     content = ''
@@ -43,6 +46,7 @@
       AFFINE_TS_KEY=${config.sops.placeholder."affine"}
       UMBREL_TS_KEY=${config.sops.placeholder."umbrel"}
       DEV_TOOLS_TS_KEY=${config.sops.placeholder."dev-tools"}
+      CA_TS_KEY=${config.sops.placeholder."ca"}
     '';
     owner = "jacob";
   };
