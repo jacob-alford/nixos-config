@@ -8,6 +8,7 @@
 }:
 let
   domain = "idm.plato-splunk.media";
+  ldapDomain = "ldap.plato-splunk.media";
   inherit (config.security.acme.certs."${domain}") directory;
 in
 {
@@ -37,31 +38,62 @@ in
       autoRemove = true;
 
       groups = {
-        "alford.admins" = { };
-        "alford.users" = { };
+        "radius_users" = { };
+
+        "openwebui_admins" = { };
+        "openwebui_users" = { };
+
+        "nextcloud_admins" = { };
+        "nextcloud_users" = { };
+
+        "jellyfin_admins" = { };
+        "jellyfin_users" = { };
       };
 
       persons = {
         jacob = {
           displayName = "Jacob Alford";
           mailAddresses = [ "web@jacob-alford.dev" ];
-          groups = [ "alford.admins" "alford.users" ];
+          groups = [
+            "radius_users"
+            "openwebui_admins"
+            "openwebui_users"
+            "nextcloud_admins"
+            "nextcloud_users"
+            "jellyfin_admins"
+            "jellyfin_users"
+          ];
         };
       };
     };
   };
 
-  services.caddy.virtualHosts."${domain}" = {
+  services.caddy.virtualHosts."https://${domain}" = {
     extraConfig = ''
       tls "${directory}/fullchain.pem" "${directory}/key.pem"
       reverse_proxy ${config.services.kanidm.provision.instanceUrl}
     '';
   };
 
+  # ACME forwarders
+
+  services.caddy.virtualHosts."http://${domain}" = {
+    extraConfig = ''
+      reverse_proxy localhost:1360
+    '';
+  };
+
+  services.caddy.virtualHosts."http://${ldapDomain}" = {
+    extraConfig = ''
+      reverse_proxy localhost:1360
+    '';
+  };
+
+  users.groups.idm.members = [ "caddy" "kanidm" ];
+
   security.acme.certs."${domain}" = {
     inherit domain;
     server = "https://ca.plato-splunk.media/acme/acme/directory";
-    extraDomainNames = [ "ldap.plato-splunk.media" ];
     group = "idm";
     reloadServices = [ "caddy.service" "kanidm.service" ];
   };

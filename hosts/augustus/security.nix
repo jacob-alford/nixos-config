@@ -10,8 +10,6 @@
 
   security.pki.certificateFiles = [ ../../certs/alford-root.crt ];
 
-  users.groups.idm.members = [ "caddy" "kanidm" ];
-
 
   networking.firewall = {
     enable = true;

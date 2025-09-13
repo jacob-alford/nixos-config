@@ -10,6 +10,6 @@
     acceptTerms = true;
     defaults.email = "web@jacob-alford.dev";
     defaults.server = "https://ca.plato-splunk.media/acme/acme/directory";
-    defaults.webroot = "/var/lib/acme/.challenges";
+    defaults.listenHTTP = "127.0.0.1:1360";
   };
 }

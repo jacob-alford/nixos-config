@@ -18,6 +18,7 @@
     owner = "kanidm";
     group = "kanidm";
   };
+
   # sops.templates."smb-creds" = {
   #   content = ''
   #     username=nixos
