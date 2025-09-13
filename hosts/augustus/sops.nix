@@ -19,15 +19,24 @@
     group = "kanidm";
   };
 
-  # sops.templates."smb-creds" = {
-  #   content = ''
-  #     username=nixos
-  #     password=${config.sops.placeholder.smb_passphrase}
-  #   '';
-  #   owner = "root";
-  # };
-  # sops.templates."minecraft-backup-passphrase" = {
-  #   content = config.sops.placeholder.minecraft_backup_passphrase;
-  #   owner = "restic";
-  # };
+  sops.secrets.kanidm_restic_backup_passphrase = {
+    owner = "restic";
+  };
+
+  sops.secrets.smb_passphrase = {
+    owner = "root";
+  };
+
+  sops.templates."smb-creds" = {
+    content = ''
+      username=augustus
+      password=${config.sops.placeholder.smb_passphrase}
+    '';
+    owner = "root";
+  };
+
+  sops.templates."kanidm-backup-passphrase" = {
+    content = config.sops.placeholder.kanidm_restic_backup_passphrase;
+    owner = "restic";
+  };
 }

@@ -10,7 +10,6 @@
 
   security.pki.certificateFiles = [ ../../certs/alford-root.crt ];
 
-
   networking.firewall = {
     enable = true;
 

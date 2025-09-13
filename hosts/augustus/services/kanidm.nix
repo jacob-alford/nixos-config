@@ -9,6 +9,7 @@
 let
   domain = "idm.plato-splunk.media";
   ldapDomain = "ldap.plato-splunk.media";
+  backupPath = "/var/lib/kanidm/backups";
   inherit (config.security.acme.certs."${domain}") directory;
 in
 {
@@ -28,6 +29,11 @@ in
 
       tls_key = "${directory}/key.pem";
       tls_chain = "${directory}/fullchain.pem";
+
+      online_backup = {
+        versions = 7;
+        path = backupPath;
+      };
     };
 
     provision = {
@@ -101,5 +107,21 @@ in
     server = "https://ca.plato-splunk.media/acme/acme/directory";
     group = "idm";
     reloadServices = [ "caddy.service" "kanidm.service" ];
+  };
+
+  # Backups
+  services.restic.backups.kanidm = {
+    user = "restic";
+    repository = "/mnt/backups/kanidm";
+    initialize = true;
+    passwordFile = config.sops.templates."kanidm-backup-passphrase".path;
+    paths = [ backupPath ];
+    timerConfig = {
+      OnCalendar = "Mon..Sun *-*-* 23:30:00";
+      Persistent = true;
+    };
+    package = pkgs.writeShellScriptBin "restic" ''
+      exec /run/wrappers/bin/restic "$@"
+    '';
   };
 }

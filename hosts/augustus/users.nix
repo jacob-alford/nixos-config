@@ -18,5 +18,8 @@
       ];
       shell = pkgs.zsh;
     };
+    restic = {
+      isNormalUser = true;
+    };
   };
 }
