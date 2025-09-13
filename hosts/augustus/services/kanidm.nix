@@ -71,7 +71,12 @@ in
   services.caddy.virtualHosts."https://${domain}" = {
     extraConfig = ''
       tls "${directory}/fullchain.pem" "${directory}/key.pem"
-      reverse_proxy ${config.services.kanidm.provision.instanceUrl}
+      reverse_proxy ${config.services.kanidm.provision.instanceUrl} {
+        header_up HOST {host}
+        transport http {
+          tls_server_name ${domain}
+        }
+      }
     '';
   };
 
