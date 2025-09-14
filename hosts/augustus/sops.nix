@@ -32,6 +32,14 @@
     owner = "kanidm";
   };
 
+  sops.secrets.unifi_radius_secret = {
+    owner = "root";
+  };
+
+  sops.secrets.ui_radius_auth_token = {
+    owner = "root";
+  };
+
   sops.secrets.smb_passphrase = {
     owner = "root";
   };

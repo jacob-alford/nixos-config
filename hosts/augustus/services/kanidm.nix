@@ -45,6 +45,9 @@ in
 
       groups = {
         "radius.access" = { };
+        "radius.access_home" = { };
+        "radius.access_guest" = { };
+        "radius.access_private" = { };
 
         "openwebui.admins" = { };
         "openwebui.access" = { };
@@ -57,11 +60,29 @@ in
       };
 
       persons = {
+        "jacob-nutrien" = {
+          displayName = "Jacob Alford (Nutrien)";
+          mailAddresses = [ "nutrien-github@a.plato-splunk.media" ];
+          groups = [
+            "radius.access"
+            "radius.access_guest"
+          ];
+        };
+        kaitlyn = {
+          displayName = "Kaitlyn Hill";
+          mailAddresses = [ "kaitlynxone@gmail.com" ];
+          groups = [
+            "radius.access"
+            "radius.access_home"
+          ];
+        };
         jacob = {
           displayName = "Jacob Alford";
           mailAddresses = [ "web@jacob-alford.dev" ];
           groups = [
             "radius.access"
+            "radius.access_home"
+            "radius.access_private"
             "openwebui.admins"
             "openwebui.access"
             "nextcloud.admins"

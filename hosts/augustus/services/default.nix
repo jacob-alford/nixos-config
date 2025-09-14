@@ -12,6 +12,7 @@
     ./kanidm.nix
     ./restic.nix
     ./openwebui.nix
+    # ./radius.nix
   ];
 
   services.getty.autologinUser = "jacob";
