@@ -23,6 +23,15 @@
     owner = "restic";
   };
 
+  sops.templates."kanidm-backup-passphrase" = {
+    content = config.sops.placeholder.kanidm_restic_backup_passphrase;
+    owner = "restic";
+  };
+
+  sops.secrets.openwebui_client_secret = {
+    owner = "kanidm";
+  };
+
   sops.secrets.smb_passphrase = {
     owner = "root";
   };
@@ -33,10 +42,5 @@
       password=${config.sops.placeholder.smb_passphrase}
     '';
     owner = "root";
-  };
-
-  sops.templates."kanidm-backup-passphrase" = {
-    content = config.sops.placeholder.kanidm_restic_backup_passphrase;
-    owner = "restic";
   };
 }

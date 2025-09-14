@@ -44,16 +44,16 @@ in
       autoRemove = true;
 
       groups = {
-        "radius_users" = { };
+        "radius.access" = { };
 
-        "openwebui_admins" = { };
-        "openwebui_users" = { };
+        "openwebui.admins" = { };
+        "openwebui.access" = { };
 
-        "nextcloud_admins" = { };
-        "nextcloud_users" = { };
+        "nextcloud.admins" = { };
+        "nextcloud.access" = { };
 
-        "jellyfin_admins" = { };
-        "jellyfin_users" = { };
+        "jellyfin.admins" = { };
+        "jellyfin.access" = { };
       };
 
       persons = {
@@ -61,13 +61,13 @@ in
           displayName = "Jacob Alford";
           mailAddresses = [ "web@jacob-alford.dev" ];
           groups = [
-            "radius_users"
-            "openwebui_admins"
-            "openwebui_users"
-            "nextcloud_admins"
-            "nextcloud_users"
-            "jellyfin_admins"
-            "jellyfin_users"
+            "radius.access"
+            "openwebui.admins"
+            "openwebui.access"
+            "nextcloud.admins"
+            "nextcloud.access"
+            "jellyfin.admins"
+            "jellyfin.access"
           ];
         };
       };
