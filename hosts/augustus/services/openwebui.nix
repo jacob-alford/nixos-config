@@ -39,6 +39,7 @@ in
       OAUTH_CLIENT_SECRET=${config.sops.placeholder."openwebui_client_secret"}
       OPENID_PROVIDER_URL=https://idm.plato-splunk.media/oauth2/openid/${clientId}/.well-known/openid-configuration
       OAUTH_PROVIDER_NAME=Kanidm
+      OAUTH_CODE_CHALLENGE_METHOD=S256
       OPENID_REDIRECT_URI=${domain}/oauth/oidc/callback
       ENABLE_OAUTH_ROLE_MANAGEMENT=true
       SSL_CERT_FILE=${config.environment.etc."ssl/certs/ca-certificates.crt".source}
