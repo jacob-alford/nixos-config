@@ -29,6 +29,7 @@ in
       joinType = "array";
       valuesByGroup = {
         "openwebui.admins" = [ "admin" ];
+        "openwebui.access" = [ "user" ];
       };
     };
   };
@@ -42,6 +43,9 @@ in
       OAUTH_CODE_CHALLENGE_METHOD=S256
       OPENID_REDIRECT_URI=${domain}/oauth/oidc/callback
       ENABLE_OAUTH_ROLE_MANAGEMENT=true
+      ENABLE_OAUTH_SIGNUP=true
+      OAUTH_ALLOWED_ROLES=user
+      OAUTH_ADMIN_ROLES=admin
       SSL_CERT_FILE=${config.environment.etc."ssl/certs/ca-certificates.crt".source}
     '';
   };
