@@ -10,6 +10,7 @@
     ./it-tools.nix
     ./caddy.nix
     ./kanidm.nix
+    ./restic.nix
   ];
 
   services.getty.autologinUser = "jacob";
