@@ -41,6 +41,7 @@ in
       OAUTH_PROVIDER_NAME=Kanidm
       OPENID_REDIRECT_URI=${domain}/oauth/oidc/callback
       ENABLE_OAUTH_ROLE_MANAGEMENT=true
+      SSL_CERT_FILE=${config.environment.etc."ssl/certs/ca-certificates.crt".source}
     '';
   };
 
