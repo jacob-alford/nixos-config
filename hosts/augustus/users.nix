@@ -6,6 +6,10 @@
 , pkgs-unstable
 , ...
 }: {
+  users.groups = {
+    radiusd = { };
+  };
+
   users.users = {
     jacob = {
       isNormalUser = true;
@@ -20,6 +24,10 @@
     };
     restic = {
       isNormalUser = true;
+    };
+    radiusd = {
+      isSystemUser = true;
+      group = "radiusd";
     };
   };
 }

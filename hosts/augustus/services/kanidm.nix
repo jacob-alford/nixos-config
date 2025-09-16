@@ -10,6 +10,7 @@ let
   domain = "idm.plato-splunk.media";
   ldapDomain = "ldap.plato-splunk.media";
   backupPath = "/var/lib/kanidm/backups";
+  acmePort = 64073;
   inherit (config.security.acme.certs."${domain}") directory;
 in
 {
@@ -111,13 +112,13 @@ in
 
   services.caddy.virtualHosts."http://${domain}" = {
     extraConfig = ''
-      reverse_proxy localhost:1360
+      reverse_proxy localhost:${builtins.toString acmePort}
     '';
   };
 
   services.caddy.virtualHosts."http://${ldapDomain}" = {
     extraConfig = ''
-      reverse_proxy localhost:1360
+      reverse_proxy localhost:${builtins.toString acmePort}
     '';
   };
 
@@ -125,6 +126,7 @@ in
 
   security.acme.certs."${domain}" = {
     inherit domain;
+    listenHTTP = "127.0.0.1:${builtins.toString acmePort}";
     server = "https://ca.plato-splunk.media/acme/acme/directory";
     group = "idm";
     reloadServices = [ "caddy.service" "kanidm.service" ];

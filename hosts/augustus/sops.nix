@@ -33,11 +33,13 @@
   };
 
   sops.secrets.unifi_radius_secret = {
-    owner = "root";
+    owner = "radiusd";
+    group = "radiusd";
   };
 
   sops.secrets.ui_radius_auth_token = {
-    owner = "root";
+    owner = "radiusd";
+    group = "radiusd";
   };
 
   sops.secrets.smb_passphrase = {
