@@ -7,7 +7,9 @@
 , ...
 }: {
   users.groups = {
-    radiusd = { };
+    radiusd = {
+      gid = 222;
+    };
   };
 
   users.users = {
@@ -28,6 +30,7 @@
     radiusd = {
       isSystemUser = true;
       group = "radiusd";
+      uid = 222;
     };
   };
 }

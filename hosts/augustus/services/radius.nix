@@ -15,9 +15,13 @@ let
 in
 {
   virtualisation.oci-containers.containers."${containerName}" = {
-    user = "radiusd";
+    # TODO: de-root
+    user = "root";
     image = "kanidm/radius:latest";
-    ports = [ "1812:1812" "1812:1812/udp" ];
+    ports = [ "1812:1812" "1812:1812/udp" "1813:1813" "1813:1813/udp" ];
+    environment = {
+      RADIUS_USER = "222:222";
+    };
     volumes = [
       "${caCert}:/data/ca.pem"
       "${directory}/fullchain.pem:/data/cert.pem"

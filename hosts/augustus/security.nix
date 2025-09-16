@@ -16,6 +16,9 @@
     allowedTCPPorts = [
       80
       443
+      # radius
+      1812
+      1813
     ];
   };
 }
