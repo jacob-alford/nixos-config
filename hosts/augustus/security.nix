@@ -16,6 +16,10 @@
     allowedTCPPorts = [
       80
       443
+
+      # ESPHome
+      # 6053
+
       # radius
       1812
       1813

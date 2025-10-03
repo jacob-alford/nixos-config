@@ -53,6 +53,9 @@ in
         "openwebui.admins" = { };
         "openwebui.access" = { };
 
+        "home-assistant.access" = { };
+        "home-assistant.admins" = { };
+
         "nextcloud.admins" = { };
         "nextcloud.access" = { };
 
@@ -90,6 +93,8 @@ in
             "nextcloud.access"
             "jellyfin.admins"
             "jellyfin.access"
+            "home-assistant.access"
+            "home-assistant.admins"
           ];
         };
       };

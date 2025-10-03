@@ -10,6 +10,9 @@
     radiusd = {
       gid = 222;
     };
+    hass = {
+      gid = config.ids.gids.hass;
+    };
   };
 
   users.users = {
@@ -31,6 +34,12 @@
       isSystemUser = true;
       group = "radiusd";
       uid = 222;
+    };
+    hass = {
+      home = "/var/lib/hass";
+      createHome = true;
+      group = "hass";
+      uid = config.ids.uids.hass;
     };
   };
 }

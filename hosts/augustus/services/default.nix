@@ -13,6 +13,7 @@
     ./restic.nix
     ./openwebui.nix
     # ./radius.nix
+    ./home-assistant.nix
   ];
 
   services.getty.autologinUser = "jacob";

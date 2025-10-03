@@ -32,6 +32,18 @@
     owner = "kanidm";
   };
 
+  sops.secrets.home_assistant_client_secret = {
+    owner = "kanidm";
+  };
+
+  sops.secrets.home_assistant_lat = {
+    owner = "hass";
+  };
+
+  sops.secrets.home_assistant_long = {
+    owner = "hass";
+  };
+
   sops.secrets.unifi_radius_secret = {
     owner = "radiusd";
     group = "radiusd";
