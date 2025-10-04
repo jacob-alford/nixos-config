@@ -21,10 +21,13 @@
     httpie
     dmidecode
     popsicle
+    inputs.affinity-nix.packages.x86_64-linux.photo
+    inputs.affinity-nix.packages.x86_64-linux.designer
+    inputs.affinity-nix.packages.x86_64-linux.publisher
   ];
-  
+
   programs.kitty.enable = true;
-  
+
   programs.mangohud = {
     enable = true;
     settings = {

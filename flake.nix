@@ -17,6 +17,8 @@
     catppuccin.url = "github:catppuccin/nix";
 
     nixvim.url = "github:nix-community/nixvim/nixos-25.05";
+
+    affinity-nix.url = "github:mrshmllow/affinity-nix";
   };
 
   outputs =
@@ -28,6 +30,7 @@
     , home-manager
     , sops-nix
     , nix-darwin
+    , affinity-nix
     , ...
     } @ inputs:
     let
