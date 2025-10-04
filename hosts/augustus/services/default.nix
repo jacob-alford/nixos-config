@@ -12,7 +12,7 @@
     ./kanidm.nix
     ./restic.nix
     ./openwebui.nix
-    # ./radius.nix
+    ./radius.nix
     ./home-assistant.nix
   ];
 

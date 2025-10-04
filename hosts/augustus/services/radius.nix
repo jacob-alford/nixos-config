@@ -18,11 +18,19 @@ in
     # TODO: de-root
     user = "root";
     image = "kanidm/radius:latest";
-    ports = [ "1812:1812" "1812:1812/udp" "1813:1813" "1813:1813/udp" ];
+    ports = [
+      "0.0.0.0:1812:1812"
+      "0.0.0.0:1812:1812/udp"
+      "0.0.0.0:1813:1813"
+      "0.0.0.0:1813:1813/udp"
+    ];
     environment = {
       RADIUS_USER = "222:222";
+      DEBUG = "True";
+      REQUESTS_CA_BUNDLE = "/data/ca.pem";
     };
     volumes = [
+      "${caCert}:/etc/pki/ca-trust/source/anchors"
       "${caCert}:/data/ca.pem"
       "${directory}/fullchain.pem:/data/cert.pem"
       "${directory}/key.pem:/data/key.pem"
@@ -32,6 +40,10 @@ in
 
   security.acme.certs."${domain}" = {
     inherit domain;
+    # extraDomainNames = [
+    #   "10.10.0.121"
+    #   "10.10.0.1"
+    # ];
     group = "radiusd";
     server = "https://ca.plato-splunk.media/acme/acme/directory";
     listenHTTP = "127.0.0.1:${builtins.toString acmePort}";
@@ -49,9 +61,10 @@ in
   sops.templates."radius_config" = {
     owner = "radiusd";
     content = ''
-      uri = "https://localhost:8443"
+      uri = "https://idm.plato-splunk.media"
       verify_hostnames = true
       verify_ca = true
+      ca_path = "/data/ca.pem"
 
       auth_token = "${config.sops.placeholder.ui_radius_auth_token}"
 
@@ -66,7 +79,8 @@ in
       ]
 
       radius_clients = [
-        { name = "u6e", ipaddr = "10.10.0.121", secret = "${config.sops.placeholder.unifi_radius_secret}" }
+        { name = "u6e", ipaddr = "10.10.0.121", secret = "${config.sops.placeholder.unifi_radius_secret}" },
+        { name = "udmp", ipaddr = "10.10.0.1", secret = "${config.sops.placeholder.unifi_radius_secret}" }
       ]
 
       radius_cert_path = "/data/cert.pem"
