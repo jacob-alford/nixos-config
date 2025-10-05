@@ -72,6 +72,14 @@ in
             "radius.access_guest"
           ];
         };
+        "guest" = {
+          displayName = "Guest Account";
+          mailAddresses = [ "guest@a.plato-splunk.media" ];
+          groups = [
+            "radius.access"
+            "radius.access_guest"
+          ];
+        };
         kaitlyn = {
           displayName = "Kaitlyn Hill";
           mailAddresses = [ "kaitlynxone@gmail.com" ];
