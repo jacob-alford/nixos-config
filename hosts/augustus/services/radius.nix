@@ -40,10 +40,6 @@ in
 
   security.acme.certs."${domain}" = {
     inherit domain;
-    # extraDomainNames = [
-    #   "10.10.0.121"
-    #   "10.10.0.1"
-    # ];
     group = "radiusd";
     server = "https://ca.plato-splunk.media/acme/acme/directory";
     listenHTTP = "127.0.0.1:${builtins.toString acmePort}";
@@ -73,9 +69,9 @@ in
       radius_required_groups = ["radius.access@idm.plato-splunk.media"]
 
       radius_groups = [
-        { spn = "radius.access_guest", vlan = 45 },
-        { spn = "radius.access_home", vlan = 55 },
-        { spn = "radius.access_private", vlan = 100 }
+        { spn = "radius.access_guest@idm.plato-splunk.media", vlan = 45 },
+        { spn = "radius.access_home@idm.plato-splunk.media", vlan = 55 },
+        { spn = "radius.access_private@idm.plato-splunk.media", vlan = 100 }
       ]
 
       radius_clients = [
