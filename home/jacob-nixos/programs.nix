@@ -25,6 +25,7 @@
     inputs.affinity-nix.packages.x86_64-linux.photo
     inputs.affinity-nix.packages.x86_64-linux.designer
     inputs.affinity-nix.packages.x86_64-linux.publisher
+    typst
   ];
 
   programs.kitty.enable = true;
