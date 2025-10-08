@@ -14,7 +14,7 @@ in
   virtualisation.oci-containers.containers = {
     it-tools = {
       image = "corentinth/it-tools:latest";
-      ports = [ "26257:${builtins.toString port}" ];
+      ports = [ "127.0.0.1:${builtins.toString port}:80" ];
     };
   };
 
