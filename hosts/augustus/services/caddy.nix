@@ -20,10 +20,4 @@
     email = "web@jacob-alford.dev";
     acmeCA = "https://ca.plato-splunk.media/acme/acme/directory";
   };
-
-  services.caddy.virtualHosts."hello.plato-splunk.media" = {
-    extraConfig = ''
-      respond "Hello, world!"
-    '';
-  };
 }
