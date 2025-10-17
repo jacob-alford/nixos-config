@@ -26,6 +26,7 @@
     inputs.affinity-nix.packages.x86_64-linux.designer
     inputs.affinity-nix.packages.x86_64-linux.publisher
     typst
+    copilot-cli
   ];
 
   programs.kitty.enable = true;

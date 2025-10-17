@@ -10,7 +10,6 @@
     inputs.catppuccin.homeModules.catppuccin
     inputs.nixvim.homeManagerModules.nixvim
     ../../shared/programs/nixvim.nix
-    ../../shared/programs/vscode.nix
     ../../shared/programs/zsh.nix
     ./programs.nix
     ./theming.nix

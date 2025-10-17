@@ -21,6 +21,7 @@
           elmtooling.elm-ls-vscode
           unifiedjs.vscode-mdx
           jnoortheen.nix-ide
+          github.copilot
         ];
         userSettings = {
           "editor.fontFamily" = "Victor Mono";
