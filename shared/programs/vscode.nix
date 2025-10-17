@@ -22,6 +22,7 @@
           unifiedjs.vscode-mdx
           jnoortheen.nix-ide
           github.copilot
+          github.copilot-chat
         ];
         userSettings = {
           "editor.fontFamily" = "Victor Mono";
