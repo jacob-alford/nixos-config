@@ -8,6 +8,7 @@
 }: {
   services.openssh = {
     enable = true;
+    openFirewall = false;
     settings = {
       PermitRootLogin = "no";
       X11Forwarding = false;

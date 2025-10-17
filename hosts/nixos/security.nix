@@ -16,5 +16,11 @@
     enable = true;
     # PORT for Whisper and Pipe (Wyoming)
     allowedTCPPorts = [ 10300 10200 ];
+
+    interfaces = {
+      tailscale0 = {
+        allowedTCPPorts = [ 22 ];
+      };
+    };
   };
 }
