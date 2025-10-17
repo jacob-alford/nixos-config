@@ -11,10 +11,10 @@
       isNormalUser = true;
       description = "Jacob Alford";
       openssh.authorizedKeys.keys = [
-        # TODO: Add your SSH public key(s) here, if you plan on using SSH to connect
+        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEaAzzPDHwyEe/3DS6MlYlAjZpdg84KckJsBA99k0/O3NgS16/XMj2SH/JN6mrcV/GZ6yat60RlpuYbgKBNDl84="
       ];
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [];
+      packages = with pkgs; [ ];
       shell = pkgs.zsh;
     };
     restic = {

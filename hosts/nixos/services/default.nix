@@ -13,6 +13,7 @@
     ./nvidia.nix
     ./restic.nix
     ./ssh.nix
+    ./openssh.nix
   ];
 
   ### Miscellaneous System Services ###
