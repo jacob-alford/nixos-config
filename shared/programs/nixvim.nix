@@ -37,7 +37,57 @@
 
       {
         action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"null-ls\" end }<CR>";
-        key = "<leader>ff";
+        key = "<C-f>";
+        options.desc = "Format with null-ls";
+      }
+
+      {
+        mode = [ "n" ];
+        key = "<C-s>";
+        action = ":w<CR>";
+        options.desc = "Save file";
+      }
+
+      {
+        mode = [ "i" ];
+        key = "<C-s>";
+        action = "<Esc>:w<CR>i";
+        options.desc = "Save file";
+      }
+
+      {
+        mode = [ "v" ];
+        key = "<C-s>";
+        action = "<Esc>:w<CR>v";
+        options.desc = "Save file";
+      }
+
+      {
+        key = "<C-v>";
+        mode = "i";
+        action = "<C-r>+";
+        options.desc = "Paste from clipboard";
+      }
+
+      {
+        key = "<C-v>";
+        mode = [
+          "n"
+          "v"
+        ];
+        action = ''"+p'';
+        options.desc = "Paste from clipboard";
+      }
+
+      {
+        key = "<C-q>";
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
+        action = "<Esc>:wq<CR>";
+        options.desc = "Save and quit";
       }
     ];
 
