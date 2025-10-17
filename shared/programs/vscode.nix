@@ -23,6 +23,7 @@
           jnoortheen.nix-ide
           github.copilot
           github.copilot-chat
+          arrterian.nix-env-selector
         ];
         userSettings = {
           "editor.fontFamily" = "Victor Mono";
