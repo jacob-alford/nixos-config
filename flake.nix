@@ -97,7 +97,10 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs = {
             inherit inputs outputs;
-            pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+            pkgs-unstable = import nixpkgs-unstable {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
           };
           modules = [
             ./home/jacob-nixos

@@ -2,14 +2,16 @@
 , lib
 , config
 , pkgs
+, pkgs-unstable
 , ...
 }: {
   programs.vscode = {
     enable = true;
+    package = pkgs-unstable.vscode;
 
     profiles = {
       default = {
-        extensions = with pkgs.vscode-extensions; [
+        extensions = with pkgs-unstable.vscode-extensions; [
           catppuccin.catppuccin-vsc
           streetsidesoftware.code-spell-checker
           dbaeumer.vscode-eslint
