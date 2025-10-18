@@ -30,6 +30,7 @@
         userSettings = {
           "editor.fontFamily" = "Victor Mono";
           "editor.snippetSuggestions" = "none";
+          "editor.inlayHints.enabled" = "off";
           "terminal.integrated.fontFamily" = "Victor Mono";
           "files.insertFinalNewline" = true;
           "editor.fontLigatures" = true;
