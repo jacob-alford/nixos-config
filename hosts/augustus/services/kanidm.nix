@@ -15,7 +15,7 @@ let
 in
 {
   services.kanidm = {
-    package = pkgs.kanidm.override { enableSecretProvisioning = true; };
+    package = pkgs.kanidm_1_7.override { enableSecretProvisioning = true; };
 
     enableClient = true;
     clientSettings.uri = config.services.kanidm.serverSettings.origin;
