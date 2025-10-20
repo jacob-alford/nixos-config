@@ -14,6 +14,7 @@
     ./openwebui.nix
     ./radius.nix
     ./home-assistant.nix
+    ./postgres.nix
   ];
 
   services.getty.autologinUser = "jacob";
