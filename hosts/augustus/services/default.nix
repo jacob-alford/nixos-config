@@ -15,6 +15,7 @@
     ./radius.nix
     ./home-assistant.nix
     ./postgres.nix
+    ./planka.nix
   ];
 
   services.getty.autologinUser = "jacob";

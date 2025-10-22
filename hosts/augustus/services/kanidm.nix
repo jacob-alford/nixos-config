@@ -61,6 +61,10 @@ in
 
         "jellyfin.admins" = { };
         "jellyfin.access" = { };
+
+        "planka.access" = { };
+        "planka.admins" = { };
+        "planka.project_owner" = { };
       };
 
       persons = {
@@ -86,6 +90,8 @@ in
           groups = [
             "radius.access"
             "radius.access_home"
+            "planka.access"
+            "planka.project_owner"
           ];
         };
         jacob = {
@@ -95,14 +101,22 @@ in
             "radius.access"
             "radius.access_home"
             "radius.access_private"
+
             "openwebui.admins"
             "openwebui.access"
+
             "nextcloud.admins"
             "nextcloud.access"
+
             "jellyfin.admins"
             "jellyfin.access"
+
             "home-assistant.access"
             "home-assistant.admins"
+
+            "planka.access"
+            "planka.project_owner"
+            "planka.admins"
           ];
         };
       };

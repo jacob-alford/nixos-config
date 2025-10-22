@@ -65,4 +65,16 @@
     '';
     owner = "root";
   };
+
+  sops.secrets.planka_secret_key = {
+    owner = "planka";
+  };
+
+  sops.secrets.planka_db_pass = {
+    owner = "planka";
+  };
+
+  sops.secrets.planka_client_secret = {
+    owner = "kanidm";
+  };
 }
