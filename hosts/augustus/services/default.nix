@@ -15,7 +15,8 @@
     ./radius.nix
     ./home-assistant.nix
     ./postgres.nix
-    ./planka.nix
+    # silent failure with latest rc :(
+    # ./planka.nix
   ];
 
   services.getty.autologinUser = "jacob";

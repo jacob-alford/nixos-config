@@ -34,8 +34,9 @@ in
     originUrl = "${domain}/oidc-callback";
     originLanding = "${domain}/";
     displayName = "Planka";
+
     # Planka doesn't appear to support the client code-challenge :(
-    allowInsecureClientDisablePkce = true;
+    # allowInsecureClientDisablePkce = true;
 
     basicSecretFile = config.sops.secrets.planka_client_secret.path;
 
@@ -67,11 +68,9 @@ in
   ];
 
   virtualisation.oci-containers.containers.planka = {
-    image = "ghcr.io/plankanban/planka:latest";
+    image = "ghcr.io/plankanban/planka:2.0.0-rc.4";
 
-    ports = [
-      "127.0.0.1:3000:${builtins.toString port}"
-    ];
+    user = "root";
 
     extraOptions = [
       "--network=host"
