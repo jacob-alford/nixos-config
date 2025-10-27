@@ -7,6 +7,7 @@
 , ...
 }: {
   imports = [
+    ./quadlet.nix
     ./it-tools.nix
     ./caddy.nix
     ./kanidm.nix
@@ -15,8 +16,7 @@
     ./radius.nix
     ./home-assistant.nix
     ./postgres.nix
-    # silent failure with latest rc :(
-    # ./planka.nix
+    ./planka.nix
   ];
 
   services.getty.autologinUser = "jacob";

@@ -13,8 +13,9 @@ let
 
   plankaDir = "/var/lib/planka";
   userAvatars = "${plankaDir}/user-avatars";
-  projectBackgroundImages = "${plankaDir}/project-background-images";
+  projectBackgroundImages = "${plankaDir}/background-images";
   attachments = "${plankaDir}/attachments";
+  favicons = "${plankaDir}/favicons";
 
   plankaUserName = clientId;
   plankaDbName = plankaUserName;
@@ -26,6 +27,7 @@ let
   containerDbPassFile = "/run/secrets/planka-database-password";
   containerPlankaSecretKeyFile = "/run/secrets/planka-secret-key";
   containerPlankaOIDCClientSecretFile = "/run/secrets/oidc-client-secret";
+  containerPlankaDefaultAdminFile = "/run/secrets/planka-default-admin-password";
 
   caCert = config.environment.etc."ssl/certs/ca-certificates.crt".source;
 in
@@ -36,7 +38,7 @@ in
     displayName = "Planka";
 
     # Planka doesn't appear to support the client code-challenge :(
-    # allowInsecureClientDisablePkce = true;
+    allowInsecureClientDisablePkce = true;
 
     basicSecretFile = config.sops.secrets.planka_client_secret.path;
 
@@ -67,31 +69,54 @@ in
     }
   ];
 
-  virtualisation.oci-containers.containers.planka = {
+  virtualisation.quadlet.containers.planka.containerConfig = {
     image = "ghcr.io/plankanban/planka:2.0.0-rc.4";
 
     user = "root";
 
-    extraOptions = [
-      "--network=host"
-    ];
+    # podman.sdnotify = "healthy";
+
+    # autoRemoveOnStop = false;
+
+    entrypoint = "./patched-start.sh";
+
+    networks = [ "host" ];
+
+    # podmanArgs = [
+    #   "--health-cmd=node ./healthcheck.js"
+    #   "--health-startup-interval=10s"
+    #   "--health-startup-timeout=2s"
+    #   "--health-start-period=15s"
+    #   "--health-on-failure=stop"
+    # ];
 
     volumes = [
+      "${./planka-start.sh}:/app/patched-start.sh"
+      "${favicons}:/app/public/favicons"
       "${userAvatars}:/app/public/user-avatars"
-      "${projectBackgroundImages}:/app/public/project-background-images"
+      "${projectBackgroundImages}:/app/public/background-images"
+      "${attachments}:/app/private/attachments"
       "${caCert}:/data/ca.pem"
-      "${attachments}:/app/private/attachements"
       "${config.sops.secrets.planka_secret_key.path}:${containerPlankaSecretKeyFile}:ro"
       "${config.sops.secrets.planka_db_pass.path}:${containerDbPassFile}:ro"
       "${config.sops.secrets.planka_client_secret.path}:${containerPlankaOIDCClientSecretFile}:ro"
+      "${config.sops.secrets.planka_default_admin_pass.path}:${containerPlankaDefaultAdminFile}:ro"
     ];
 
-    environment = {
+    environments = {
+      SHOW_DETAILED_AUTH_ERRORS = "true";
+
+      DEFAULT_LANGUAGE = "en-US";
+      DEFAULT_ADMIN_EMAIL = "planka-admin@a.plato-splunk.media";
+      DEFAULT_ADMIN_PASSWORD__FILE = containerPlankaDefaultAdminFile;
+      DEFAULT_ADMIN_NAME = "Plato Splunk Admin";
+      DEFAULT_ADMIN_USERNAME = "admin";
+
       REQUESTS_CA_BUNDLE = "/data/ca.pem";
       NODE_EXTRA_CA_CERTS = "/data/ca.pem";
 
       BASE_URL = domain;
-      TRUST_PROXY = "1";
+      TRUST_PROXY = "true";
       DATABASE_URL = "postgresql://planka:$${DATABASE_PASSWORD}@127.0.0.1/planka";
       SECRET_KEY__FILE = containerPlankaSecretKeyFile;
       DATABASE_PASSWORD__FILE = containerDbPassFile;
@@ -99,6 +124,7 @@ in
       OIDC_ISSUER = "https://idm.plato-splunk.media/oauth2/openid/${clientId}";
       OIDC_CLIENT_ID = clientId;
       OIDC_CLIENT_SECRET__FILE = containerPlankaOIDCClientSecretFile;
+      OIDC_ID_TOKEN_SIGNED_RESPONSE_ALG = "ES256";
 
       OIDC_ADMIN_ROLES = plankaAdminRole;
       OIDC_PROJECT_OWNER_ROLES = plankaPORole;
@@ -106,9 +132,10 @@ in
       OIDC_CLAIMS_SOURCE = "id_token";
       OIDC_IGNORE_USERNAME = "true";
       OIDC_ENFORCED = "true";
+      OIDC_ROLES_ATTRIBUTE = "roles";
     };
 
-    autoStart = true;
+    # autoStart = true;
   };
 
   services.caddy.virtualHosts."${domain}" = {

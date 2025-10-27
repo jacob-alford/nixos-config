@@ -74,6 +74,10 @@
     owner = "planka";
   };
 
+  sops.secrets.planka_default_admin_pass = {
+    owner = "planka";
+  };
+
   sops.secrets.planka_client_secret = {
     owner = "kanidm";
   };

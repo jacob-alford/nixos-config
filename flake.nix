@@ -19,6 +19,8 @@
     nixvim.url = "github:nix-community/nixvim/nixos-25.05";
 
     affinity-nix.url = "github:mrshmllow/affinity-nix";
+
+    quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
   };
 
   outputs =
@@ -31,6 +33,7 @@
     , sops-nix
     , nix-darwin
     , affinity-nix
+    , quadlet-nix
     , ...
     } @ inputs:
     let
@@ -73,6 +76,7 @@
             ./hosts/augustus
             sops-nix.nixosModules.sops
             nixvim.nixosModules.nixvim
+            quadlet-nix.nixosModules.quadlet
           ];
         };
       };
