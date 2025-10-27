@@ -28,6 +28,15 @@
     owner = "restic";
   };
 
+  sops.secrets.postgres_restic_backup_passphrase = {
+    owner = "restic";
+  };
+
+  sops.templates."postgres-backup-passphrase" = {
+    content = config.sops.placeholder.postgres_restic_backup_passphrase;
+    owner = "restic";
+  };
+
   sops.secrets.openwebui_client_secret = {
     owner = "kanidm";
   };
@@ -80,5 +89,9 @@
 
   sops.secrets.planka_client_secret = {
     owner = "kanidm";
+  };
+
+  sops.secrets.planka_restic_backup_passphrase = {
+    owner = "restic";
   };
 }

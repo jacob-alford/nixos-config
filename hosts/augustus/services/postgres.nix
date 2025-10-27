@@ -68,4 +68,27 @@ in
       #  host    sameuser        all             0.0.0.0/0               scram-sha-256
     '';
   };
+
+  services.postgresqlBackup = {
+    enable = true;
+    backupAll = true;
+  };
+
+  # Backups
+  services.restic.backups.postgres = {
+    user = "restic";
+    repository = "/mnt/backups/postgres";
+    initialize = true;
+    passwordFile = config.sops.templates."postgres-backup-passphrase".path;
+    paths = [
+      "${config.services.postgresqlBackup.location}/all.sql.gz"
+    ];
+    timerConfig = {
+      OnCalendar = "Mon..Sun *-*-* 01:30:00";
+      Persistent = true;
+    };
+    package = pkgs.writeShellScriptBin "restic" ''
+      exec /run/wrappers/bin/restic "$@"
+    '';
+  };
 }

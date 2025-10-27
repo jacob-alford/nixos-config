@@ -143,4 +143,19 @@ in
       reverse_proxy localhost:${builtins.toString port}
     '';
   };
+
+  services.restic.backups.planka = {
+    user = "restic";
+    repository = "/mnt/backups/planka";
+    initialize = true;
+    passwordFile = config.sops.secrets.planka_restic_backup_passphrase.path;
+    paths = [ plankaDir ];
+    timerConfig = {
+      OnCalendar = "Mon..Sun *-*-* 23:30:00";
+      Persistent = true;
+    };
+    package = pkgs.writeShellScriptBin "restic" ''
+      exec /run/wrappers/bin/restic "$@"
+    '';
+  };
 }
