@@ -17,6 +17,7 @@
     ./home-assistant.nix
     ./postgres.nix
     ./planka.nix
+    ./minecraft-servers
   ];
 
   services.getty.autologinUser = "jacob";

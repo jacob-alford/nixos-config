@@ -94,4 +94,8 @@
   sops.secrets.planka_restic_backup_passphrase = {
     owner = "restic";
   };
+
+  sops.secrets.minecraft_backup_passphrase = {
+    owner = "restic";
+  };
 }

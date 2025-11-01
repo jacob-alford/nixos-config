@@ -21,6 +21,8 @@
     affinity-nix.url = "github:mrshmllow/affinity-nix";
 
     quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs =
@@ -34,6 +36,7 @@
     , nix-darwin
     , affinity-nix
     , quadlet-nix
+    , nix-minecraft
     , ...
     } @ inputs:
     let
@@ -77,6 +80,10 @@
             sops-nix.nixosModules.sops
             nixvim.nixosModules.nixvim
             quadlet-nix.nixosModules.quadlet
+            nix-minecraft.nixosModules.minecraft-servers
+            {
+              nixpkgs.overlays = [ nix-minecraft.overlay ];
+            }
           ];
         };
       };
