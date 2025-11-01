@@ -13,6 +13,12 @@
   networking.firewall = {
     enable = true;
 
+    interfaces = {
+      tailscale0 = {
+        allowedTCPPorts = [ 25565 ];
+      };
+    };
+
     allowedTCPPorts = [
       80
       443
