@@ -16,10 +16,6 @@
     owner = "root";
   };
 
-  sops.secrets.minecraft_backup_passphrase = {
-    owner = "restic";
-  };
-
   sops.templates."smb-creds" = {
     content = ''
       username=nixos
@@ -34,10 +30,5 @@
       password=${config.sops.placeholder.jacob_smb_passphrase}
     '';
     owner = "root";
-  };
-
-  sops.templates."minecraft-backup-passphrase" = {
-    content = config.sops.placeholder.minecraft_backup_passphrase;
-    owner = "restic";
   };
 }

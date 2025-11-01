@@ -9,7 +9,6 @@
   imports = [
     ./ai.nix
     ./cifs.nix
-    ./minecraft.nix
     ./nvidia.nix
     ./restic.nix
     ./ssh.nix
