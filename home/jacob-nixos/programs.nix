@@ -49,12 +49,12 @@
 
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Include ~/.ssh/1Password/config
+    # extraConfig = ''
+    #   Include ~/.ssh/1Password/config
 
-      Host *
-           	  IdentityAgent ~/.1password/agent.sock
-    '';
+    #   Host *
+    #        	  IdentityAgent ~/.1password/agent.sock
+    # '';
   };
 
   programs.starship = {
