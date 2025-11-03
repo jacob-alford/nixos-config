@@ -8,11 +8,11 @@
     enable = true;
     userName = "Jacob Alford";
     userEmail = "github.scouting378@passmail.net";
-    # signing = {
-    #   format = "ssh";
-    #   key = "~/.ssh/id_ed25519_sk";
-    #   signByDefault = true;
-    # };
+    signing = {
+      format = "ssh";
+      key = "~/.ssh/id_ed25519_signing";
+      signByDefault = true;
+    };
     extraConfig = {
       init = {
         defaultBranch = "main";
@@ -30,17 +30,17 @@
         autoSetupRemote = true;
       };
 
-      # gpg = {
-      #   format = "ssh";
-      # };
+      gpg = {
+        format = "ssh";
+      };
 
-      # commit = {
-      #   gpgsign = true;
-      # };
+      commit = {
+        gpgsign = true;
+      };
 
-      # user = {
-      #   signingkey = "~/.ssh/id_ed25519_sk";
-      # };
+      user = {
+        signingkey = "~/.ssh/id_ed25519_signing";
+      };
     };
   };
 }
