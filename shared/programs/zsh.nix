@@ -20,7 +20,7 @@
 
       ssh_udm = "TERM=vt100 ssh root@10.76.100.1";
       ssh_unas = "TERM=vt100 ssh root@nas.plato-splunk.media";
-      ssh_aug = "TERM=vt100 ssh jacob@augustus.neko-bicolor.ts.net";
+      ssh_aug = "TERM=vt100 ssh -A jacob@augustus.neko-bicolor.ts.net";
       ssh_mini = "TERM=vt100 ssh jacob@mini.neko-bicolor.ts.net";
     };
   };

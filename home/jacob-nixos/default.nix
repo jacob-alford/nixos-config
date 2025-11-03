@@ -37,6 +37,7 @@
 
   home.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+    SSH_AUTH_SOCK = "/run/user/1000/ssh-agent";
   };
 
   # Nicely reload system units when changing configs

@@ -8,7 +8,7 @@
 }: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  
+
   system.autoUpgrade = {
     enable = true;
     dates = "04:00";
@@ -59,11 +59,4 @@
       };
     };
   };
-
-  environment.extraInit = ''
-    # Do not want this in the environment. NixOS always sets it and does not
-    # provide any option not to, so I must unset it myself via the
-    # environment.extraInit option.
-    unset -v SSH_ASKPASS
-  '';
 }

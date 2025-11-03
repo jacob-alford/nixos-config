@@ -28,6 +28,21 @@
           withCuDNN = true;
         };
       })
+
+      (
+        final: prev: {
+          # Disable gnonme-keyring SSH functionality
+          gnome-keyring =
+            prev.gnome-keyring.overrideAttrs
+              (oldAttrs: {
+                configureFlags =
+                  (builtins.filter (flag: flag != "--Dssh-agent=true") oldAttrs.mesonFlags)
+                  ++ [
+                    "--Dssh-agent=false"
+                  ];
+              });
+        }
+      )
     ];
 
     config = {

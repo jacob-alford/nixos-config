@@ -50,10 +50,17 @@
   programs.ssh = {
     enable = true;
     addKeysToAgent = "yes";
+    matchBlocks = {
+      "augustus.neko-bicolor.ts.net" = {
+        user = "jacob";
+        forwardAgent = true;
+        identityAgent = "/run/user/1000/ssh-agent";
+        identityFile = "~/.ssh/id_ed25519_sk";
+      };
+    };
     extraConfig = ''
       IdentitiesOnly yes
       IdentityAgent none
-      User git
     '';
   };
 
