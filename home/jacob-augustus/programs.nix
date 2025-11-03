@@ -38,30 +38,17 @@
         autoSetupRemote = true;
       };
 
-      # gpg = {
-      #   format = "ssh";
-      # };
+      gpg = {
+        format = "ssh";
+      };
 
-      # "gpg \"ssh\"" = {
-      #   program = "${lib.getExe' pkgs._1password-gui "op-ssh-sign"}";
-      # };
+      commit = {
+        gpgsign = true;
+      };
 
-      # commit = {
-      #   gpgsign = true;
-      # };
-
-      # user = {
-      #   signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIILWx58wZCH+S3GeV6WIEYl34u5ST3SYnpKZbdN3YLPI";
-      # };
-
-      # credential = {
-      #   "https://github.com" = {
-      #     helper = "!gh auth git-credential";
-      #   };
-      #   "https://gist.github.com" = {
-      #     helper = "!gh auth git-credential";
-      #   };
-      # };
+      user = {
+        signingkey = "key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYLbVA5672FbyQKVQg3dsA2ozdcrf7dCW2o+fdrgIYq github.scouting378@passmail.net";
+      };
     };
   };
 }

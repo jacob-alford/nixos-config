@@ -11,7 +11,6 @@
     ./cifs.nix
     ./nvidia.nix
     ./restic.nix
-    ./ssh.nix
     ./openssh.nix
   ];
 

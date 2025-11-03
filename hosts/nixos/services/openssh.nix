@@ -16,4 +16,11 @@
       KbdInteractiveAuthentication = false;
     };
   };
+
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    askPassword = "${pkgs.systemd}/bin/systemd-ask-pass";
+    extraConfig = "AddKeysToAgent yes";
+  };
 }
