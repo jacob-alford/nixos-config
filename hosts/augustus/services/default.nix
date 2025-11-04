@@ -30,6 +30,7 @@
     settings = {
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      AllowUsers = [ "jacob" ];
     };
   };
 

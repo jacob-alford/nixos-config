@@ -14,6 +14,7 @@
       X11Forwarding = false;
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
+      AllowUsers = [ "jacob" ];
     };
   };
 
