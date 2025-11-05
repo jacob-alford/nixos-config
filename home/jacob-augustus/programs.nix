@@ -47,7 +47,7 @@
       };
 
       user = {
-        signingkey = "key::ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYLbVA5672FbyQKVQg3dsA2ozdcrf7dCW2o+fdrgIYq github.scouting378@passmail.net";
+        signingkey = "~/.ssh/id_ed25519";
       };
     };
   };
