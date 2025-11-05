@@ -127,7 +127,7 @@
         };
       };
 
-      copilot-vim.enable = true;
+      # copilot-vim.enable = true;
 
       #guess-indent = {
       #  enable = true;

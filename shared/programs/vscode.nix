@@ -26,6 +26,9 @@
           github.copilot
           github.copilot-chat
           arrterian.nix-env-selector
+          vue.volar
+          vue.vscode-typescript-vue-plugin
+          lokalise.i18n-ally
         ];
         userSettings = {
           "editor.fontFamily" = "Victor Mono";
