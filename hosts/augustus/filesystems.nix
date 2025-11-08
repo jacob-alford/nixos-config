@@ -7,7 +7,7 @@
 , ...
 }: {
   fileSystems."/mnt/backups" = {
-    device = "//10.10.0.251/Personal-Drive";
+    device = "//10.76.100.190/Personal-Drive";
     fsType = "cifs";
     options =
       let
