@@ -24,6 +24,11 @@
 
   services.tailscale.enable = true;
 
+  environment.etc."sysctl.d/99-tailscale.conf".text = ''
+    net.ipv4.ip_forward = 1
+    net.ipv6.conf.all.forwarding = 1
+  '';
+
   services.openssh = {
     enable = true;
     openFirewall = false;
