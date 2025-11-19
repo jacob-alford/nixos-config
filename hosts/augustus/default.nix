@@ -15,6 +15,7 @@
     ./system.nix
     ./users.nix
     ./security.nix
+    ./filesystems.nix
     ./sops.nix
     ./acme.nix
   ];
