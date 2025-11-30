@@ -237,24 +237,26 @@
 
       neo-tree = {
         enable = true;
-        enableDiagnostics = true;
-        enableGitStatus = true;
-        enableModifiedMarkers = true;
-        enableRefreshOnWrite = true;
-        closeIfLastWindow = true;
-        popupBorderStyle = "rounded"; # Type: null or one of “NC”, “double”, “none”, “rounded”, “shadow”, “single”, “solid” or raw lua code
-        buffers = {
-          bindToCwd = false;
-          followCurrentFile = {
-            enabled = true;
+        settings = {
+          popup_border_style = "rounded"; # Type: null or one of “NC”, “double”, “none”, “rounded”, “shadow”, “single”, “solid” or raw lua code
+          enable_diagnostics = true;
+          enable_git_status = true;
+          enable_modified_markers = true;
+          enable_refresh_on_write = true;
+          close_if_last_window = true;
+          window = {
+            width = 40;
+            height = 15;
+            autoExpandWidth = false;
+            mappings = {
+              "<space>" = "none";
+            };
           };
-        };
-        window = {
-          width = 40;
-          height = 15;
-          autoExpandWidth = false;
-          mappings = {
-            "<space>" = "none";
+          buffers = {
+            bind_to_cwd = false;
+            follow_current_file = {
+              enabled = true;
+            };
           };
         };
       };
@@ -272,7 +274,8 @@
           astro.enable = true; # AstroJS
           phpactor.enable = true; # PHP
           svelte.enable = false; # Svelte
-          vuels.enable = false; # Vue
+          # Not supported in 25.11 :(
+          # vuels.enable = false; # Vue
           pyright.enable = true; # Python
           marksman.enable = true; # Markdown
           nil_ls.enable = true; # Nix
