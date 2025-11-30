@@ -47,7 +47,7 @@
     packages = with pkgs; [
       victor-mono
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
     ];
 
     fontconfig = {
