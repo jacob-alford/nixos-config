@@ -12,6 +12,7 @@
     ./nvidia.nix
     ./restic.nix
     ./openssh.nix
+    ./cosmic.nix
   ];
 
   ### Miscellaneous System Services ###
@@ -28,22 +29,6 @@
     enable = true;
     nssmdns4 = true;
     openFirewall = true;
-  };
-
-  services.xserver.enable = true;
-
-  services.xserver.desktopManager.gnome = {
-    enable = true;
-  };
-
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = true;
-  };
-
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
   };
 
   services.pipewire = {
