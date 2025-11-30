@@ -19,6 +19,6 @@
   };
 
   programs.ssh = {
-    startAgent = true;
+    startAgent = false;
   };
 }
