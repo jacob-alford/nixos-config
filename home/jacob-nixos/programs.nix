@@ -7,7 +7,7 @@
 }: {
   home.packages = with pkgs; [
     steam
-    protonup
+    protonup-ng
     kitty
     prismlauncher
     discord
