@@ -29,6 +29,7 @@
   services.udev.packages = with pkgs; [
     via
     qmk-udev-rules
+    gnome-settings-daemon
   ];
 
   environment.systemPackages = with pkgs; [
@@ -43,10 +44,28 @@
     via
     quickemu
     adwaita-icon-theme
+    gnomeExtensions.appindicator
     openssl
     # CIFS (SMB) client
     cifs-utils
     # Backups
     restic
+  ];
+
+  environment.gnome.excludePackages = with pkgs; [
+    orca
+    geary
+    gnome-backgrounds
+    gnome-tour # GNOME Shell detects the .desktop file on first log-in.
+    gnome-user-docs
+    epiphany
+    gnome-text-editor
+    gnome-calculator
+    gnome-contacts
+    gnome-maps
+    gnome-music
+    simple-scan
+    totem
+    yelp
   ];
 }
