@@ -6,14 +6,12 @@
 }: {
   programs.git = {
     enable = true;
-    userName = "Jacob Alford";
-    userEmail = "github.scouting378@passmail.net";
     signing = {
       format = "ssh";
       key = "~/.ssh/id_ed25519_signing";
       signByDefault = true;
     };
-    extraConfig = {
+    settings = {
       init = {
         defaultBranch = "main";
       };
@@ -40,6 +38,8 @@
 
       user = {
         signingkey = "~/.ssh/id_ed25519_signing";
+        name = "Jacob Alford";
+        email = "github.scouting378@passmail.net";
       };
     };
   };
