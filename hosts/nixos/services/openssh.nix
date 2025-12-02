@@ -19,6 +19,7 @@
   };
 
   programs.ssh = {
-    startAgent = false;
+    startAgent = true;
+    enableAskPassword = true;
   };
 }
