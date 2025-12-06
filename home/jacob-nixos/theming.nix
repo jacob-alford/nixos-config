@@ -7,7 +7,8 @@
   catppuccin = {
     enable = true;
     flavor = "frappe";
-    starship.enable = true; 
-    kitty.enable = true; 
+    starship.enable = true;
+    kitty.enable = true;
+    ghostty.enable = true;
   };
 }
