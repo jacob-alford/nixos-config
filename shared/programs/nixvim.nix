@@ -285,6 +285,7 @@
           svelte.enable = false; # Svelte
           # Not supported in 25.11 :(
           # vuels.enable = false; # Vue
+          volar.enable = true;
           pyright.enable = true; # Python
           marksman.enable = true; # Markdown
           nil_ls.enable = true; # Nix
