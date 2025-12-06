@@ -31,7 +31,13 @@
 
   programs.kitty.enable = true;
 
-  programs.ghostty.enable = true;
+  programs.ghostty = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      font-family = "victor-mono";
+    };
+  };
 
   programs.mangohud = {
     enable = true;
