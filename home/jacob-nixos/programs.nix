@@ -9,7 +9,6 @@
     steam
     protonup-ng
     kitty
-    ghostty
     prismlauncher
     discord
     makemkv
@@ -31,6 +30,8 @@
   ];
 
   programs.kitty.enable = true;
+
+  programs.ghostty.enable = true;
 
   programs.mangohud = {
     enable = true;
