@@ -9,6 +9,7 @@
     steam
     protonup-ng
     kitty
+    ghostty
     prismlauncher
     discord
     makemkv
