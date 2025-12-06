@@ -273,7 +273,7 @@
       lsp = {
         enable = true;
         # --- not available in 24.05 ---
-        # inlayHints = true;
+        inlayHints = true;
         servers = {
           # Average webdev LSPs
           ts_ls.enable = true; # TS/JS
