@@ -29,7 +29,11 @@
     github-copilot-cli
   ];
 
-  programs.kitty.enable = true;
+  programs.kitty = {
+    enable = true;
+    enableGitIntegration = true;
+    font.name = "victor-mono";
+  };
 
   programs.ghostty = {
     enable = true;
