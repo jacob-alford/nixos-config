@@ -136,24 +136,6 @@
         };
       };
 
-      # copilot-vim.enable = true;
-
-      #guess-indent = {
-      #  enable = true;
-      #  settings = {
-      #    auto_cmd = true;
-      #    on_space_options = {
-      #      expandtab = true;
-      #      shiftwidth = "detected";
-      #      softtabstop = "detected";
-      #      tabstop = "detected";
-      #    };
-      #    on_tab_options = {
-      #      expandtab = false;
-      #    };
-      #  };
-      #};
-
       lualine = {
         enable = true;
       };
@@ -170,11 +152,6 @@
       none-ls = {
         enable = true;
 
-        # settings = {
-        # cmd = [ "zsh -c nvim" ];
-        # debug = true;
-        # };
-
         sources = {
           code_actions = {
             statix.enable = true;
@@ -189,7 +166,6 @@
           };
 
           formatting = {
-            # command = [ "zsh -c nvim" ];
             alejandra.enable = true;
             stylua.enable = true;
             shfmt.enable = true;
@@ -201,11 +177,6 @@
             };
             black = {
               enable = true;
-              # settings = ''
-              #  {
-              #    extra_args = { "--fast" },
-              #  }
-              # '';
             };
             dxfmt = {
               enable = true;
@@ -309,6 +280,11 @@
             installCargo = true;
           };
         };
+      };
+
+      neoscroll = {
+        enable = true;
+        autoLoad = true;
       };
 
       alpha = {
