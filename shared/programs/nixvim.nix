@@ -25,6 +25,8 @@
       smarttab = true;
 
       cursorline = true;
+
+      wrap = false;
     };
 
     globals.mapleader = " ";
@@ -89,6 +91,74 @@
         action = "<Esc>:wq<CR>";
         options.desc = "Save and quit";
       }
+
+      {
+        key = "<C-w>";
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
+        action = "<CMD>BufferClose<CR>";
+        options.desc = "Close current tab";
+        options.silent = true;
+        options.nowait = true;
+      }
+
+      {
+        key = "\\";
+        mode = [
+          "n"
+        ];
+        action = "<CMD>split<CR>";
+        options.desc = "Split horizontal";
+      }
+
+      {
+        key = "|";
+        mode = [
+          "n"
+        ];
+        action = "<CMD>vsplit<CR>";
+        options.desc = "Split vertical";
+      }
+
+      {
+        key = "<leader>o";
+        mode = "n";
+        action = ":on<CR>";
+        options.desc = "Remove all splits but active split";
+      }
+
+      {
+        key = "<C-h>";
+        mode = [
+          "n"
+        ];
+        action = "<cmd>lua require('smart-splits').resize_left()<CR>";
+      }
+
+      {
+        key = "<C-j>";
+        mode = [
+          "n"
+        ];
+        action = "<cmd>lua require('smart-splits').resize_down()<CR>";
+      }
+      {
+        key = "<C-k>";
+        mode = [
+          "n"
+        ];
+        action = "<cmd>lua require('smart-splits').resize_up()<CR>";
+      }
+      {
+        key = "<C-l>";
+        mode = [
+          "n"
+        ];
+        action = "<cmd>lua require('smart-splits').resize_right()<CR>";
+      }
     ];
 
     colorschemes.catppuccin = {
@@ -117,7 +187,6 @@
     };
 
     plugins = {
-      # --- not yet available in 24.05 ---
       web-devicons = {
         enable = true;
         settings = {
@@ -125,6 +194,7 @@
           color_icons = true;
           variant = "dark";
         };
+        autoLoad = true;
       };
 
       telescope = {
@@ -145,6 +215,10 @@
       };
 
       ts-autotag = {
+        enable = true;
+      };
+
+      smart-splits = {
         enable = true;
       };
 
@@ -282,7 +356,7 @@
         };
       };
 
-      neoscroll = {
+      barbar = {
         enable = true;
         autoLoad = true;
       };
