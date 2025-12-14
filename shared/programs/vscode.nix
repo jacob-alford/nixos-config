@@ -65,6 +65,8 @@
           "typescript.preferences.importModuleSpecifier" = "relative";
           "editor.lineNumbers" = "relative";
 
+          "editor.defaultFormatter" = "esbenp.prettier-vscode";
+
           "editor.tokenColorCustomizations" = {
             "textMateRules" = [
               {
