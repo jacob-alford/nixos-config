@@ -222,6 +222,10 @@
         enable = true;
       };
 
+      git-conflict = {
+        enable = true;
+      };
+
       # formatting
       none-ls = {
         enable = true;
