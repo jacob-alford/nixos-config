@@ -27,6 +27,7 @@
     inputs.affinity-nix.packages.x86_64-linux.publisher
     typst
     github-copilot-cli
+    jq
   ];
 
   programs.kitty = {
