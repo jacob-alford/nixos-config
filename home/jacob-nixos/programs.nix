@@ -71,6 +71,13 @@
         identityAgent = "/run/user/1000/ssh-agent";
         identityFile = "~/.ssh/id_ed25519_sk";
       };
+      "cicero.neko-bicolor.ts.net" = {
+        user = "jacob";
+        addKeysToAgent = "yes";
+        forwardAgent = true;
+        identityAgent = "/run/user/1000/ssh-agent";
+        identityFile = "~/.ssh/id_ed25519_sk";
+      };
       "*" = {
         forwardAgent = false;
         addKeysToAgent = "no";
