@@ -45,6 +45,17 @@
       inherit (self) outputs;
     in
     {
+      # devshells.default = {
+      #   commands = [
+      #     "cicero"
+      #     "augustus"
+      #   ] |> map (host: {
+      #       name = "remote-build-${host}";
+      #       help = "Rebuild ${host} over ssh";
+      #       command = "nixos-rebuild --taret-host jacob@${host}.neko-bicolor.ts.net";
+      #   };);
+      # };
+
       # nixos-rebuild --flake .#nixos
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
