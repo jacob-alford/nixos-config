@@ -17,6 +17,8 @@
         # nix-path = config.nix.nixPath;
 
         allowed-users = [ "@wheel" ];
+
+        trusted-users = [ "jacob" ];
       };
       # Opinionated: disable channels
       channel.enable = false;
