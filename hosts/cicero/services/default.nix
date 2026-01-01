@@ -14,7 +14,7 @@
     enable = true;
     openFirewall = true;
     settings = {
-      PasswordAuthentication = true;
+      PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       AllowUsers = [ "jacob" ];
     };
