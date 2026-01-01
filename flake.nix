@@ -25,6 +25,9 @@
     quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
 
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+
+    flake-parts.url = "github:hercules-ci/flake-parts";
+    devshell.url = "github:numtide/devshell";
   };
 
   outputs =
@@ -39,145 +42,155 @@
     , affinity-nix
     , quadlet-nix
     , nix-minecraft
+    , flake-parts
+    , devshell
     , ...
     } @ inputs:
     let
       inherit (self) outputs;
-      eachSystem = f:
-        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
     in
-    {
-      devShells = eachSystem (pkgs: {
-        default = {
+    flake-parts.lib.mkFlake { inherit inputs; } (_: {
+      imports = [
+        inputs.devshell.flakeModule
+      ];
+
+      perSystem = _: {
+        devshells.default = {
           commands = [
             {
               name = "remote-build-cicero";
               help = "Rebuild Cicero over ssh";
-              command = "nixos-rebuild --taret-host jacob@cicero.neko-bicolor.ts.net";
+              command = "nixos-rebuild --target-host jacob@cicero.neko-bicolor.ts.net switch --flake .#cicero --sudo --ask-sudo-password";
             }
             {
               name = "remote-build-augustus";
               help = "Rebuild Augustus over ssh";
-              command = "nixos-rebuild --taret-host jacob@augustus.neko-bicolor.ts.net";
+              command = "nixos-rebuild --target-host jacob@augustus.neko-bicolor.ts.net switch --flake .#augustus --sudo --ask-sudo-password";
             }
           ];
         };
-      });
-
-      # nixos-rebuild --flake .#nixos
-      nixosConfigurations = {
-        nixos = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-
-            pkgs-unstable = import nixpkgs-unstable {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
-            };
-          };
-
-          modules = [
-            home-manager.nixosModules.home-manager
-            catppuccin.nixosModules.catppuccin
-            nixvim.nixosModules.nixvim
-            ./hosts/nixos
-            sops-nix.nixosModules.sops
-          ];
-        };
-
-        augustus = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-
-            pkgs-unstable = import nixpkgs-unstable {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
-            };
-          };
-
-          modules = [
-            home-manager.nixosModules.home-manager
-            ./hosts/augustus
-            sops-nix.nixosModules.sops
-            nixvim.nixosModules.nixvim
-            quadlet-nix.nixosModules.quadlet
-            nix-minecraft.nixosModules.minecraft-servers
-            {
-              nixpkgs.overlays = [ nix-minecraft.overlay ];
-            }
-          ];
-        };
-
-        cicero = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-
-            pkgs-unstable = import nixpkgs-unstable {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
-            };
-          };
-
-          modules = [
-            home-manager.nixosModules.home-manager
-            ./hosts/cicero
-            sops-nix.nixosModules.sops
-            nixvim.nixosModules.nixvim
-          ];
-        };
       };
 
-      darwinConfigurations = {
-        mini = nix-darwin.lib.darwinSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
+      systems = [
+        "x86_64-linux"
+      ];
 
-          modules = [
-            ./hosts/mini
-            sops-nix.darwinModules.sops
-            nixvim.nixDarwinModules.nixvim
-          ];
-        };
-      };
+      flake = {
+        # nixos-rebuild --flake .#nixos
+        nixosConfigurations = {
+          nixos = nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs;
 
-      # home-manager --flake .#jacob@nixos
-      homeConfigurations = {
-        "jacob@nixos" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-            pkgs-unstable = import nixpkgs-unstable {
-              system = "x86_64-linux";
-              config.allowUnfree = true;
+              pkgs-unstable = import nixpkgs-unstable {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
             };
+
+            modules = [
+              home-manager.nixosModules.home-manager
+              catppuccin.nixosModules.catppuccin
+              nixvim.nixosModules.nixvim
+              ./hosts/nixos
+              sops-nix.nixosModules.sops
+            ];
           };
-          modules = [
-            ./home/jacob-nixos
-          ];
+
+          augustus = nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs;
+
+              pkgs-unstable = import nixpkgs-unstable {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+            };
+
+            modules = [
+              home-manager.nixosModules.home-manager
+              ./hosts/augustus
+              sops-nix.nixosModules.sops
+              nixvim.nixosModules.nixvim
+              quadlet-nix.nixosModules.quadlet
+              nix-minecraft.nixosModules.minecraft-servers
+              {
+                nixpkgs.overlays = [ nix-minecraft.overlay ];
+              }
+            ];
+          };
+
+          cicero = nixpkgs.lib.nixosSystem {
+            specialArgs = {
+              inherit inputs outputs;
+
+              pkgs-unstable = import nixpkgs-unstable {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+            };
+
+            modules = [
+              home-manager.nixosModules.home-manager
+              ./hosts/cicero
+              sops-nix.nixosModules.sops
+              nixvim.nixosModules.nixvim
+            ];
+          };
         };
 
-        "jacob@augustus" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-            pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+        darwinConfigurations = {
+          mini = nix-darwin.lib.darwinSystem {
+            specialArgs = {
+              inherit inputs outputs;
+            };
+
+            modules = [
+              ./hosts/mini
+              sops-nix.darwinModules.sops
+              nixvim.nixDarwinModules.nixvim
+            ];
           };
-          modules = [
-            ./home/jacob-augustus
-          ];
         };
 
-        "jacob@cicero" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-            pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+        # home-manager --flake .#jacob@nixos
+        homeConfigurations = {
+          "jacob@nixos" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            extraSpecialArgs = {
+              inherit inputs outputs;
+              pkgs-unstable = import nixpkgs-unstable {
+                system = "x86_64-linux";
+                config.allowUnfree = true;
+              };
+            };
+            modules = [
+              ./home/jacob-nixos
+            ];
           };
-          modules = [
-            ./home/jacob-cicero
-          ];
+
+          "jacob@augustus" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            extraSpecialArgs = {
+              inherit inputs outputs;
+              pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+            };
+            modules = [
+              ./home/jacob-augustus
+            ];
+          };
+
+          "jacob@cicero" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            extraSpecialArgs = {
+              inherit inputs outputs;
+              pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+            };
+            modules = [
+              ./home/jacob-cicero
+            ];
+          };
         };
       };
-    };
+    });
 }
