@@ -15,7 +15,7 @@
     ./system.nix
     ./users.nix
     ./security.nix
-    # ./sops.nix
+    ./sops.nix
   ];
 
   nixpkgs.config.allowUnfree = true;

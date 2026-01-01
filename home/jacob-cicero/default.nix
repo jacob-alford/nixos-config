@@ -11,6 +11,7 @@
     inputs.nixvim.homeManagerModules.nixvim
     ../../shared/programs/nixvim.nix
     ../../shared/programs/zsh.nix
+    ../../shared/programs/git.nix
     ./programs.nix
     ./theming.nix
   ];

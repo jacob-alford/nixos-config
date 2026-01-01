@@ -60,6 +60,12 @@
             sops
             age
           ];
+          env = [
+            {
+              name = "EDITOR";
+              value = "nvim";
+            }
+          ];
           commands = [
             {
               name = "remote-build-cicero";
