@@ -47,7 +47,7 @@
         nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      devshells = eachSystem (pkgs: {
+      devShells = eachSystem (pkgs: {
         default = {
           commands = [
             {
