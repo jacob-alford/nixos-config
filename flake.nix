@@ -54,8 +54,12 @@
         inputs.devshell.flakeModule
       ];
 
-      perSystem = _: {
+      perSystem = { pkgs, ... }: {
         devshells.default = {
+          packages = with pkgs; [
+            sops
+            age
+          ];
           commands = [
             {
               name = "remote-build-cicero";
