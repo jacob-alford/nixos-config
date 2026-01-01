@@ -45,16 +45,20 @@
       inherit (self) outputs;
     in
     {
-      # devshells.default = {
-      #   commands = [
-      #     "cicero"
-      #     "augustus"
-      #   ] |> map (host: {
-      #       name = "remote-build-${host}";
-      #       help = "Rebuild ${host} over ssh";
-      #       command = "nixos-rebuild --taret-host jacob@${host}.neko-bicolor.ts.net";
-      #   };);
-      # };
+      devshells.default = {
+        commands = [
+          {
+            name = "remote-build-cicero";
+            help = "Rebuild Cicero over ssh";
+            command = "nixos-rebuild --taret-host jacob@cicero.neko-bicolor.ts.net";
+          }
+          {
+            name = "remote-build-augustus";
+            help = "Rebuild Augustus over ssh";
+            command = "nixos-rebuild --taret-host jacob@augustus.neko-bicolor.ts.net";
+          }
+        ];
+      };
 
       # nixos-rebuild --flake .#nixos
       nixosConfigurations = {
