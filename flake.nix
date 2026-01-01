@@ -43,22 +43,26 @@
     } @ inputs:
     let
       inherit (self) outputs;
+      eachSystem = f:
+        nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: f nixpkgs.legacyPackages.${system});
     in
     {
-      devshells.default = {
-        commands = [
-          {
-            name = "remote-build-cicero";
-            help = "Rebuild Cicero over ssh";
-            command = "nixos-rebuild --taret-host jacob@cicero.neko-bicolor.ts.net";
-          }
-          {
-            name = "remote-build-augustus";
-            help = "Rebuild Augustus over ssh";
-            command = "nixos-rebuild --taret-host jacob@augustus.neko-bicolor.ts.net";
-          }
-        ];
-      };
+      devshells = eachSystem (pkgs: {
+        default = {
+          commands = [
+            {
+              name = "remote-build-cicero";
+              help = "Rebuild Cicero over ssh";
+              command = "nixos-rebuild --taret-host jacob@cicero.neko-bicolor.ts.net";
+            }
+            {
+              name = "remote-build-augustus";
+              help = "Rebuild Augustus over ssh";
+              command = "nixos-rebuild --taret-host jacob@augustus.neko-bicolor.ts.net";
+            }
+          ];
+        };
+      });
 
       # nixos-rebuild --flake .#nixos
       nixosConfigurations = {
