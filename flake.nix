@@ -88,6 +88,24 @@
             }
           ];
         };
+
+        cicero = nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs outputs;
+
+            pkgs-unstable = import nixpkgs-unstable {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
+          };
+
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/cicero
+            sops-nix.nixosModules.sops
+            nixvim.nixosModules.nixvim
+          ];
+        };
       };
 
       darwinConfigurations = {
@@ -128,6 +146,17 @@
           };
           modules = [
             ./home/jacob-augustus
+          ];
+        };
+
+        "jacob@cicero" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          extraSpecialArgs = {
+            inherit inputs outputs;
+            pkgs-unstable = nixpkgs-unstable.legacyPackages.x86_64-linux;
+          };
+          modules = [
+            ./home/jacob-cicero
           ];
         };
       };
