@@ -5,8 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # TODO: Update Nix-Darwin to 25.11
-    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.05";
+    nix-darwin.url = "github:nix-darwin/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager/release-25.11";
@@ -15,8 +14,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    # TODO: Update Catppuccin to 25.11
-    catppuccin.url = "github:catppuccin/nix/release-25.05";
+    catppuccin.url = "github:catppuccin/nix/release-25.11";
 
     nixvim.url = "github:nix-community/nixvim/nixos-25.11";
 
@@ -27,6 +25,7 @@
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
+
     devshell.url = "github:numtide/devshell";
   };
 
