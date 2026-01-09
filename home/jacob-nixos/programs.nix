@@ -28,6 +28,7 @@
     typst
     github-copilot-cli
     jq
+    vlc
   ];
 
   programs.kitty = {
