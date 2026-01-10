@@ -24,7 +24,6 @@ let
   plankaPORole = "project_owner";
   plankaUserRole = "board_user";
 
-  containerDbPassFile = "/run/secrets/planka-database-password";
   containerPlankaSecretKeyFile = "/run/secrets/planka-secret-key";
   containerPlankaOIDCClientSecretFile = "/run/secrets/oidc-client-secret";
   containerPlankaDefaultAdminFile = "/run/secrets/planka-default-admin-password";
@@ -59,12 +58,12 @@ in
   };
 
   services.postgresql.ensureDatabases = [
-    plankaUserName
+    plankaDbName
   ];
 
   services.postgresql.ensureUsers = [
     {
-      name = plankaDbName;
+      name = plankaUserName;
       ensureDBOwnership = true;
     }
   ];
@@ -72,7 +71,7 @@ in
   virtualisation.quadlet.containers.planka.containerConfig = {
     image = "ghcr.io/plankanban/planka:2.0.0-rc.4";
 
-    user = "root";
+    user = "planka";
 
     # podman.sdnotify = "healthy";
 
@@ -97,9 +96,9 @@ in
       "${projectBackgroundImages}:/app/public/background-images"
       "${attachments}:/app/private/attachments"
       "${caCert}:/data/ca.pem"
+      "/run/postgresql:/run/postgresql"
       "${config.sops.secrets.planka_secret_key.path}:${containerPlankaSecretKeyFile}:ro"
-      "${config.sops.secrets.planka_db_pass.path}:${containerDbPassFile}:ro"
-      "${config.sops.secrets.planka_client_secret.path}:${containerPlankaOIDCClientSecretFile}:ro"
+      "${config.sops.templates."planka-client-secret".path}:${containerPlankaOIDCClientSecretFile}:ro"
       "${config.sops.secrets.planka_default_admin_pass.path}:${containerPlankaDefaultAdminFile}:ro"
     ];
 
@@ -117,9 +116,8 @@ in
 
       BASE_URL = domain;
       TRUST_PROXY = "true";
-      DATABASE_URL = "postgresql://planka:$${DATABASE_PASSWORD}@127.0.0.1/planka";
+      DATABASE_URL = "postgresql://planka@/planka?host=/run/postgresql";
       SECRET_KEY__FILE = containerPlankaSecretKeyFile;
-      DATABASE_PASSWORD__FILE = containerDbPassFile;
 
       OIDC_ISSUER = "https://idm.plato-splunk.media/oauth2/openid/${clientId}";
       OIDC_CLIENT_ID = clientId;

@@ -119,6 +119,7 @@
             modules = [
               home-manager.nixosModules.home-manager
               ./hosts/augustus
+              ./shared/services/postgres.nix
               sops-nix.nixosModules.sops
               nixvim.nixosModules.nixvim
               quadlet-nix.nixosModules.quadlet

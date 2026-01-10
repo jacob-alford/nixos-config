@@ -91,6 +91,11 @@
     owner = "kanidm";
   };
 
+  sops.templates."planka-client-secret" = {
+    content = config.sops.placeholder.planka_client_secret;
+    owner = "planka";
+  };
+
   sops.secrets.planka_restic_backup_passphrase = {
     owner = "restic";
   };
