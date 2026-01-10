@@ -68,22 +68,14 @@ in
     }
   ];
 
-  virtualisation.quadlet.containers.planka.containerConfig = {
+  virtualisation.oci-containers.containers.planka = {
     image = "ghcr.io/plankanban/planka:2.0.0-rc.4";
 
-    user = config.users.users.planka.name;
-
-    userns = "keep-id:uid=${toString config.users.users.planka.uid},gid=${toString config.users.groups.planka.gid}";
-
-    autoSubUidGidRange = true;
-
-    # podman.sdnotify = "healthy";
-
-    # autoRemoveOnStop = false;
+    user = "${toString config.users.users.planka.uid}:${toString config.users.groups.planka.gid}";
 
     entrypoint = "./patched-start.sh";
 
-    networks = [ "host" ];
+    # networks = [ "host" ];
 
     # podmanArgs = [
     #   "--health-cmd=node ./healthcheck.js"
@@ -93,6 +85,10 @@ in
     #   "--health-on-failure=stop"
     # ];
 
+    extraOptions = [
+      "--mount=type=tmpfs,dst=/app,U=true"
+    ];
+
     volumes = [
       "${./planka-start.sh}:/app/patched-start.sh"
       "${favicons}:/app/public/favicons"
@@ -100,13 +96,13 @@ in
       "${projectBackgroundImages}:/app/public/background-images"
       "${attachments}:/app/private/attachments"
       "${caCert}:/data/ca.pem"
-      "/run/postgresql:/run/postgresql"
+      "/run/postgresql:/run/postgresql:z"
       "${config.sops.secrets.planka_secret_key.path}:${containerPlankaSecretKeyFile}:ro"
       "${config.sops.templates."planka-client-secret".path}:${containerPlankaOIDCClientSecretFile}:ro"
       "${config.sops.secrets.planka_default_admin_pass.path}:${containerPlankaDefaultAdminFile}:ro"
     ];
 
-    environments = {
+    environment = {
       SHOW_DETAILED_AUTH_ERRORS = "true";
 
       DEFAULT_LANGUAGE = "en-US";
@@ -120,7 +116,11 @@ in
 
       BASE_URL = domain;
       TRUST_PROXY = "true";
-      DATABASE_URL = "postgresql://planka@/planka?host=/run/postgresql";
+      DATABASE_URL = "postgresql://planka@%2Frun%2Fpostgresql/planka";
+      PGHOST = "/run/postgresql";
+      PGUSER = "planka";
+      PGDATABASE = "planka";
+      PGPORT = "5432";
       SECRET_KEY__FILE = containerPlankaSecretKeyFile;
 
       OIDC_ISSUER = "https://idm.plato-splunk.media/oauth2/openid/${clientId}";

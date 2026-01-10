@@ -18,7 +18,7 @@ load_secret() {
 	fi
 }
 
-if [[ -n "${DATABASE_URL}" ]]; then
+if [[ -n "${DATABASE_URL:-}" ]]; then
 	if [[ -z "${DATABASE_PASSWORD:-}" && -e "${DATABASE_PASSWORD__FILE:-}" ]]; then
 		DATABASE_PASSWORD="$(read_secret "${DATABASE_PASSWORD__FILE}")"
 		export DATABASE_URL="${DATABASE_URL/\$\{DATABASE_PASSWORD\}/${DATABASE_PASSWORD}}"
