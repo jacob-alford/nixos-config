@@ -71,9 +71,9 @@ in
   virtualisation.quadlet.containers.planka.containerConfig = {
     image = "ghcr.io/plankanban/planka:2.0.0-rc.4";
 
-    user = "planka";
+    user = config.users.users.planka.name;
 
-    userns = "keep-id:uid=992,gid=987";
+    userns = "keep-id:uid=${config.users.users.planka.uid},gid=${config.users.users.planka.gid}";
 
     # podman.sdnotify = "healthy";
 
