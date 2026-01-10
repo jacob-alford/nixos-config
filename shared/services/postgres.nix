@@ -22,7 +22,7 @@ in
 
     dataDir = lib.mkOption {
       type = lib.types.str;
-      default = "/var/lib/postgresql/\${config.services.postgresql.package.psqlSchema}";
+      default = "/var/lib/postgresql/${config.services.postgresql.package.psqlSchema}";
       description = "Data directory for PostgreSQL";
     };
 
