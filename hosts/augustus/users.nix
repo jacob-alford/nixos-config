@@ -13,7 +13,9 @@
     hass = {
       gid = config.ids.gids.hass;
     };
-    planka = { };
+    planka = {
+      gid = 10666;
+    };
   };
 
   users.users = {
@@ -46,6 +48,7 @@
       isSystemUser = true;
       home = "/var/lib/planka";
       group = "planka";
+      uid = 10666;
     };
   };
 }
