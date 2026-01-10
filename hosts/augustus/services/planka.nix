@@ -73,6 +73,8 @@ in
 
     user = "planka";
 
+    userns = "keep-id:uid=992,gid=987";
+
     # podman.sdnotify = "healthy";
 
     # autoRemoveOnStop = false;
