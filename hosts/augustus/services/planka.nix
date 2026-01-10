@@ -73,7 +73,7 @@ in
 
     user = config.users.users.planka.name;
 
-    userns = "keep-id:uid=${config.users.users.planka.uid},gid=${config.users.users.planka.gid}";
+    userns = "keep-id:uid=${toString config.users.users.planka.uid},gid=${toString config.users.users.planka.gid}";
 
     # podman.sdnotify = "healthy";
 
