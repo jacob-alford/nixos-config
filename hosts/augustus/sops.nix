@@ -100,6 +100,10 @@
     owner = "restic";
   };
 
+  sops.secrets.step_ca_oidc_client_secret = {
+    owner = "kanidm";
+  };
+
   sops.secrets.minecraft_backup_passphrase = {
     owner = "restic";
   };

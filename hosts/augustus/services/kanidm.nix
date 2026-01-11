@@ -117,6 +117,8 @@ in
             "planka.access"
             "planka.project_owner"
             "planka.admins"
+
+            "step-ca.access"
           ];
         };
       };

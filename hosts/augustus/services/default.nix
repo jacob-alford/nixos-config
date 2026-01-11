@@ -17,6 +17,7 @@
     ./home-assistant.nix
     ./postgres.nix
     ./planka.nix
+    ./step-ca.nix
     ./minecraft-servers
   ];
 
