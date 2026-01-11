@@ -112,7 +112,8 @@ in
             clientID = clientId;
             # Client Secret is "public" anywho
             # https://smallstep.com/docs/step-ca/provisioners/#notes
-            clientSecret = "PLACEHOLDER_OIDC_CLIENT_SECRET";
+            # Really no way around it unfortunately
+            clientSecret = "Fb6vJKX4DcxFxRY4DpFJtkAtXv9fGH2rkewYBJmJWmK8xq6PLT4xyHHaQzmxksGLjH9rGWsJarEeGo4nRbQGNkmfJQpvnrjW38bM";
             listenAddress = "localhost:60859";
             configurationEndpoint = "https://idm.plato-splunk.media/oauth2/openid/${clientId}/.well-known/openid-configuration";
             domains = [ "plato-splunk.media" ];
@@ -148,14 +149,5 @@ in
       PGSSLROOTCERT = toString rootCert;
       PGSSLMODE = "verify-full";
     };
-
-    preStart = ''
-      # Inject OIDC client secret into config
-      CONFIG_FILE="/etc/smallstep/ca.json"
-      if [ -f "$CONFIG_FILE" ]; then
-        CLIENT_SECRET=$(cat ${config.sops.templates."step-ca-oidc-client-secret".path})
-        ${pkgs.gnused}/bin/sed -i "s|PLACEHOLDER_OIDC_CLIENT_SECRET|$CLIENT_SECRET|g" "$CONFIG_FILE"
-      fi
-    '';
   };
 }
