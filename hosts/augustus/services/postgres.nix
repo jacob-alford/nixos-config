@@ -10,17 +10,23 @@
     enable = true;
     package = pkgs.postgresql_17_jit;
     enableBackup = true;
+    tlsDomain = "postgres-augustus.plato-splunk.media";
 
     ensureDatabases = [
-      "plato-splunk"
+      "jacob"
     ];
 
     ensureUsers = [
       {
-        name = "plato-splunk";
+        name = "jacob";
         ensureDBOwnership = true;
       }
     ];
+  };
+
+  # Force postgres domain to resolve to localhost for password auth
+  networking.hosts = {
+    "127.0.0.1" = [ "postgres-augustus.plato-splunk.media" ];
   };
 
   # Backups

@@ -7,9 +7,11 @@
 , ...
 }:
 let
-  domain = "https://planka.plato-splunk.media";
+  domain = "planka.plato-splunk.media";
+  url = "https://${domain}";
   clientId = "planka";
   port = 1337;
+  postgresHost = "postgres-augustus.plato-splunk.media";
 
   plankaDir = "/var/lib/planka";
   userAvatars = "${plankaDir}/user-avatars";
@@ -27,13 +29,15 @@ let
   containerPlankaSecretKeyFile = "/run/secrets/planka-secret-key";
   containerPlankaOIDCClientSecretFile = "/run/secrets/oidc-client-secret";
   containerPlankaDefaultAdminFile = "/run/secrets/planka-default-admin-password";
+  containerPlankaDbPasswordFile = "/run/secrets/planka-db-password";
 
+  containerRootCert = "/data/ca.pem";
   caCert = config.environment.etc."ssl/certs/ca-certificates.crt".source;
 in
 {
   services.kanidm.provision.systems.oauth2."${clientId}" = {
-    originUrl = "${domain}/oidc-callback";
-    originLanding = "${domain}/";
+    originUrl = "${url}/oidc-callback";
+    originLanding = "${url}/";
     displayName = "Planka";
 
     # Planka doesn't appear to support the client code-challenge :(
@@ -68,6 +72,10 @@ in
     }
   ];
 
+  services.peesequel.provisionPasswords = {
+    planka = config.sops.secrets.planka_db_pass.path;
+  };
+
   virtualisation.oci-containers.containers.planka = {
     image = "ghcr.io/plankanban/planka:2.0.0-rc.4";
 
@@ -75,7 +83,7 @@ in
 
     entrypoint = "./patched-start.sh";
 
-    # networks = [ "host" ];
+    networks = [ "host" ];
 
     # podmanArgs = [
     #   "--health-cmd=node ./healthcheck.js"
@@ -95,11 +103,11 @@ in
       "${userAvatars}:/app/public/user-avatars"
       "${projectBackgroundImages}:/app/public/background-images"
       "${attachments}:/app/private/attachments"
-      "${caCert}:/data/ca.pem"
-      "/run/postgresql:/run/postgresql:z"
+      "${caCert}:${containerRootCert}"
       "${config.sops.secrets.planka_secret_key.path}:${containerPlankaSecretKeyFile}:ro"
       "${config.sops.templates."planka-client-secret".path}:${containerPlankaOIDCClientSecretFile}:ro"
       "${config.sops.secrets.planka_default_admin_pass.path}:${containerPlankaDefaultAdminFile}:ro"
+      "${config.sops.secrets.planka_db_pass.path}:${containerPlankaDbPasswordFile}:ro"
     ];
 
     environment = {
@@ -111,16 +119,19 @@ in
       DEFAULT_ADMIN_NAME = "Plato Splunk Admin";
       DEFAULT_ADMIN_USERNAME = "admin";
 
-      REQUESTS_CA_BUNDLE = "/data/ca.pem";
-      NODE_EXTRA_CA_CERTS = "/data/ca.pem";
+      REQUESTS_CA_BUNDLE = containerRootCert;
+      NODE_EXTRA_CA_CERTS = containerRootCert;
 
-      BASE_URL = domain;
+      BASE_URL = url;
       TRUST_PROXY = "true";
-      DATABASE_URL = "postgresql://planka@%2Frun%2Fpostgresql/planka";
-      PGHOST = "/run/postgresql";
+      DATABASE_URL = "postgresql://planka:\${DATABASE_PASSWORD}@${postgresHost}/planka?ssl=true&sslmode=verify-full";
+      DATABASE_PASSWORD__FILE = containerPlankaDbPasswordFile;
+      PGHOST = postgresHost;
       PGUSER = "planka";
       PGDATABASE = "planka";
       PGPORT = "5432";
+      PGSSLMODE = "verify-full";
+      PGSSLROOTCERT = containerRootCert;
       SECRET_KEY__FILE = containerPlankaSecretKeyFile;
 
       OIDC_ISSUER = "https://idm.plato-splunk.media/oauth2/openid/${clientId}";
@@ -140,7 +151,7 @@ in
     # autoStart = true;
   };
 
-  services.caddy.virtualHosts."${domain}" = {
+  services.caddy.virtualHosts."${url}" = {
     extraConfig = ''
       reverse_proxy localhost:${builtins.toString port}
     '';

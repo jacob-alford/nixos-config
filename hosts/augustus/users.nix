@@ -16,6 +16,9 @@
     planka = {
       gid = 10666;
     };
+    planka-certs = {
+      gid = 11666;
+    };
   };
 
   users.users = {
