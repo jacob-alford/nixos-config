@@ -81,6 +81,8 @@
 
   sops.secrets.planka_db_pass = {
     owner = "planka";
+    group = "planka-db-pass";
+    mode = "0440";
   };
 
   sops.secrets.planka_default_admin_pass = {

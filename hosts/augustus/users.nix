@@ -19,6 +19,9 @@
     planka-certs = {
       gid = 11666;
     };
+    planka-db-pass = {
+      gid = 12666;
+    };
   };
 
   users.users = {

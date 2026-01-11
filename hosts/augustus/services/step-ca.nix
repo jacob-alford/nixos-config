@@ -27,15 +27,12 @@ in
   };
 
   # Provision database for step-ca
-  services.peesequel.ensureDatabases = [ "step-ca" ];
+  services.peesequel.ensureDatabases = [ "ca" ];
 
   services.peesequel.ensureUsers = [
     {
       name = "ca";
       ensureDBOwnership = true;
-      ensureClauses = {
-        database = "step-ca";
-      };
     }
   ];
 }

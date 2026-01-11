@@ -72,6 +72,11 @@ in
     }
   ];
 
+  users.groups.planka-db-pass.members = [
+    "planka"
+    "postgres"
+  ];
+
   services.peesequel.provisionPasswords = {
     planka = config.sops.secrets.planka_db_pass.path;
   };

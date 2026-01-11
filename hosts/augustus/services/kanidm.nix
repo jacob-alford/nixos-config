@@ -65,6 +65,8 @@ in
         "planka.access" = { };
         "planka.admins" = { };
         "planka.project_owner" = { };
+
+        "step-ca.access" = { };
       };
 
       persons = {
