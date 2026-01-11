@@ -43,9 +43,15 @@ in
         format = "text";
       };
 
+      # Use BadgerDB for now - will migrate to PostgreSQL after bootstrapping mTLS cert
+      # TODO: Once db-client.crt/key are issued via ACME, switch to PostgreSQL:
+      # db = {
+      #   type = "postgresql";
+      #   dataSource = "postgresql:///step-ca?host=${postgresHost}&sslmode=verify-full&sslcert=${dbClientCert}&sslkey=${dbClientKey}&sslrootcert=${rootCert}";
+      # };
       db = {
-        type = "postgresql";
-        dataSource = "postgresql:///step-ca?host=${postgresHost}&sslmode=verify-full&sslcert=${dbClientCert}&sslkey=${dbClientKey}&sslrootcert=${rootCert}";
+        type = "badgerv2";
+        dataSource = "/var/lib/step-ca/db";
       };
 
       ssh = {
