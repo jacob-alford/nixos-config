@@ -13,6 +13,10 @@
 
   networking.hostName = "cicero";
 
+  networking.hosts = {
+    "127.0.0.1" = [ "ca.plato-splunk.media" ];
+  };
+
   networking.networkmanager.enable = true;
 
   services.resolved = {

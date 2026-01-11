@@ -6,7 +6,9 @@
 , pkgs-unstable
 , ...
 }: {
-  imports = [ ];
+  imports = [
+    ./step-ca.nix
+  ];
 
   services.tailscale.enable = true;
 
