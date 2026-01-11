@@ -11,8 +11,8 @@ let
   postgresHost = "postgres-augustus.plato-splunk.media";
   clientId = "step-ca";
 
-  rootCert = ../../certs/alford-root.crt;
-  intermediateCert = ../../certs/intermediate_ca_2.crt;
+  rootCert = ../../../certs/alford-root.crt;
+  intermediateCert = ../../../certs/intermediate_ca_2.crt;
 
   dbClientCert = "/var/lib/step-ca/certs/db-client.crt";
   dbClientKey = "/var/lib/step-ca/certs/db-client.key";
@@ -50,7 +50,7 @@ in
 
       ssh = {
         hostKey = "yubikey:slot-id=82";
-        userKey = "yubikey:slot-id=92";
+        userKey = "yubikey:slot-id=83";
       };
 
       authority = {
@@ -112,7 +112,7 @@ in
             clientID = clientId;
             # Client Secret is "public" anywho
             # https://smallstep.com/docs/step-ca/provisioners/#notes
-            clientSecret = config.sops.secrets.step_ca_oidc_client_secret.source;
+            clientSecret = "PLACEHOLDER_OIDC_CLIENT_SECRET";
             listenAddress = "localhost:60859";
             configurationEndpoint = "https://idm.plato-splunk.media/oauth2/openid/${clientId}/.well-known/openid-configuration";
             domains = [ "plato-splunk.media" ];
@@ -140,12 +140,22 @@ in
   };
 
   # Environment variables for PostgreSQL mTLS connection
-  systemd.services.step-ca.environment = {
-    STEPPATH = "/var/lib/step-ca";
-    PGSSLCERT = dbClientCert;
-    PGSSLKEY = dbClientKey;
-    PGSSLROOTCERT = toString rootCert;
-    PGSSLMODE = "verify-full";
-    OIDC_CLIENT_SECRET = config.sops.secrets.step_ca_oidc_client_secret.path;
+  systemd.services.step-ca = {
+    environment = {
+      STEPPATH = "/var/lib/step-ca";
+      PGSSLCERT = dbClientCert;
+      PGSSLKEY = dbClientKey;
+      PGSSLROOTCERT = toString rootCert;
+      PGSSLMODE = "verify-full";
+    };
+
+    preStart = ''
+      # Inject OIDC client secret into config
+      CONFIG_FILE="/etc/smallstep/ca.json"
+      if [ -f "$CONFIG_FILE" ]; then
+        CLIENT_SECRET=$(cat ${config.sops.templates."step-ca-oidc-client-secret".path})
+        ${pkgs.gnused}/bin/sed -i "s|PLACEHOLDER_OIDC_CLIENT_SECRET|$CLIENT_SECRET|g" "$CONFIG_FILE"
+      fi
+    '';
   };
 }
