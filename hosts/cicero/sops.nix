@@ -18,4 +18,10 @@
     owner = "step-ca";
     group = "step-ca";
   };
+
+  sops.templates."yk-pin.txt" = {
+    content = config.sops.placeholder.yk_pin;
+    owner = "step-ca";
+    group = "step-ca";
+  };
 }

@@ -36,7 +36,7 @@ in
 
       kms = {
         type = "yubikey";
-        pin-source = config.sops.secrets.yk_pin.path;
+        uri = "yubikey:pin-source=${config.sops.templates."yk-pin.txt".path}";
       };
 
       logger = {
@@ -146,7 +146,6 @@ in
     };
   };
 
-  # Environment variables for PostgreSQL mTLS connection
   systemd.services.step-ca = {
     environment = {
       STEPPATH = "/var/lib/step-ca";
