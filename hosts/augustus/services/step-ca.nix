@@ -12,8 +12,8 @@ in
 {
   # Provision OIDC client for step-ca in Kanidm
   services.kanidm.provision.systems.oauth2."${clientId}" = {
-    originUrl = "http://localhost:60859/kanidm/callback";
-    originLanding = "http://localhost:60859/";
+    originUrl = "http://127.0.0.1:10000";
+    originLanding = "http://127.0.0.1:10000";
     displayName = "Step CA";
 
     allowInsecureClientDisablePkce = false;

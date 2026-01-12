@@ -120,7 +120,7 @@ in
             # https://smallstep.com/docs/step-ca/provisioners/#notes
             # Really no way around it unfortunately
             clientSecret = "Fb6vJKX4DcxFxRY4DpFJtkAtXv9fGH2rkewYBJmJWmK8xq6PLT4xyHHaQzmxksGLjH9rGWsJarEeGo4nRbQGNkmfJQpvnrjW38bM";
-            listenAddress = "localhost:60859";
+            listenAddress = "127.0.0.1:10000";
             configurationEndpoint = "https://idm.plato-splunk.media/oauth2/openid/${clientId}/.well-known/openid-configuration";
             domains = [ "plato-splunk.media" ];
             claims = {
