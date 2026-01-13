@@ -13,5 +13,6 @@
   environment.systemPackages = with pkgs; [
     vim
     yubikey-manager
+    step-cli
   ];
 }
