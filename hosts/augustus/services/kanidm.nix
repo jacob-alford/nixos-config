@@ -98,7 +98,7 @@ in
         };
         jacob = {
           displayName = "Jacob Alford";
-          mailAddresses = [ "web@jacob-alford.dev" ];
+          mailAddresses = [ "jacob@plato-splunk.media" ];
           groups = [
             "radius.access"
             "radius.access_home"
