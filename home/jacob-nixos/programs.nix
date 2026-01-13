@@ -29,6 +29,7 @@
     github-copilot-cli
     jq
     vlc
+    step-cli
   ];
 
   programs.kitty = {
