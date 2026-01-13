@@ -64,6 +64,11 @@ in
           x509 = {
             allow = {
               dns = [ "*.plato-splunk.media" ];
+              email = [ "@plato-splunk.media" ];
+            };
+            deny = {
+              dns = [ "postgres.plato-splunk.media" "root.plato-splunk.media" ];
+              email = [ "postgres@plato-splunk.media" "root@plato-splunk.media" ];
             };
             allowWildcardNames = false;
           };
@@ -72,12 +77,17 @@ in
               allow = {
                 dns = [ "*.plato-splunk.media" ];
               };
+              deny = {
+                dns = [ "postgres.plato-splunk.media" "root.plato-splunk.media" ];
+              };
             };
             user = {
               allow = {
+                principal = [ "*" ];
                 email = [ "@plato-splunk.media" ];
               };
               deny = {
+                principal = [ "postgres" "root" ];
                 email = [ "postgres@plato-splunk.media" "root@plato-splunk.media" ];
               };
             };
