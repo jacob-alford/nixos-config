@@ -67,6 +67,8 @@ in
         "planka.project_owner" = { };
 
         "step-ca.access" = { };
+        "step-ca.ssh-provisioner-augustus" = { };
+        "step-ca.ssh-provisioner-cicero" = { };
       };
 
       persons = {
@@ -121,6 +123,8 @@ in
             "planka.admins"
 
             "step-ca.access"
+            "step-ca.ssh-provisioner-augustus"
+            "step-ca.ssh-provisioner-cicero"
           ];
         };
       };
