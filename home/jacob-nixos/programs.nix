@@ -66,6 +66,12 @@
     enable = true;
     enableDefaultConfig = false;
     matchBlocks = {
+      "exec \"step ssh check-host %s\"" = {
+        user = "jacob";
+        forwardAgent = true;
+        userKnownHostsFile = "~/.step/ssh/known_hosts";
+        proxyCommand = "step ssh proxycommand %r %h %p --provisioner \"kanidm\"";
+      };
       "augustus.neko-bicolor.ts.net" = {
         user = "jacob";
         addKeysToAgent = "yes";
