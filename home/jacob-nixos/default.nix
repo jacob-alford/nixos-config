@@ -38,6 +38,9 @@
   home.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
     SSH_AUTH_SOCK = "$XDG_RUNTIME_DIR/ssh-agent";
+    EDITOR = "nvim";
+    CA_URL = "https://ca.plato-splunk.media";
+    CA_FINGERPRINT = "56c220018d0c65d5283d46d7c769eb471c18b2e903b205a9457261b2c52f2392";
   };
 
   # Nicely reload system units when changing configs
