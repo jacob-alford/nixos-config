@@ -24,4 +24,8 @@
     owner = "step-ca";
     group = "step-ca";
   };
+
+  sops.secrets.step_ca_ssh_host_cicero_provisioner_passphrase = {
+    owner = "root";
+  };
 }
