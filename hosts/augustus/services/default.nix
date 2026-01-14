@@ -19,6 +19,7 @@
     ./planka.nix
     ./step-ca.nix
     ./minecraft-servers
+    ./openssh.nix
   ];
 
   services.getty.autologinUser = "jacob";
@@ -29,16 +30,6 @@
     net.ipv4.ip_forward = 1
     net.ipv6.conf.all.forwarding = 1
   '';
-
-  services.openssh = {
-    enable = true;
-    openFirewall = false;
-    settings = {
-      PasswordAuthentication = false;
-      KbdInteractiveAuthentication = false;
-      AllowUsers = [ "jacob" ];
-    };
-  };
 
   services.xserver.xkb = {
     layout = "us";

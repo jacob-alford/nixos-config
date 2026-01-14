@@ -109,4 +109,8 @@
   sops.secrets.minecraft_backup_passphrase = {
     owner = "restic";
   };
+
+  sops.secrets.step_ca_ssh_host_augustus_provisioner_passphrase = {
+    owner = "root";
+  };
 }
