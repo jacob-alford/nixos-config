@@ -110,7 +110,7 @@
     owner = "restic";
   };
 
-  sops.secrets.step_ca_ssh_host_augustus_provisioner_passphrase = {
+  sops.secrets.step_jwk_provisioner_password = {
     owner = "root";
   };
 }

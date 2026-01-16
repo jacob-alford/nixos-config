@@ -105,14 +105,12 @@ in
               "device-attest-01"
             ];
             claims = {
-              enableSSHCA = true;
               disableRenewal = false;
               allowRenewalAfterExpiry = false;
               disableSmallstepExtensions = false;
             };
             options = {
               x509 = { };
-              ssh = { };
             };
           }
           {
@@ -133,6 +131,54 @@ in
             listenAddress = "127.0.0.1:10000";
             configurationEndpoint = "https://idm.plato-splunk.media/oauth2/openid/${clientId}/.well-known/openid-configuration";
             domains = [ "plato-splunk.media" ];
+            claims = {
+              enableSSHCA = true;
+            };
+          }
+          {
+            type = "JWK";
+            name = "augustus.plato-splunk.media";
+            key = {
+              "use" = "sig";
+              "kty" = "EC";
+              "kid" = "7_wfaqwbLk94as2f7jKmvXs3yr51bDgLLdXgLRX_pu4";
+              "crv" = "P-256";
+              "alg" = "ES256";
+              "x" = "W4yiQ8BzNA76ehZeIK3cmHY4BlsoTHLdTrpR3-qBQ3E";
+              "y" = "vCnEkPmAyxHGOJPDc2hC-YqeDlF1rFwFpmW_efYaMSs";
+            };
+            claims = {
+              enableSSHCA = true;
+            };
+          }
+          {
+            type = "JWK";
+            name = "cicero.plato-splunk.media";
+            key = {
+              "use" = "sig";
+              "kty" = "EC";
+              "kid" = "v3TMvBAmYNVhlOXOEIKOVLrEXqaPFPmoTsWVAWZNUuI";
+              "crv" = "P-256";
+              "alg" = "ES256";
+              "x" = "TNcsQAP1zbr6sFxG6SQMCn8vi10Ejm5VeYiFC90fhEM";
+              "y" = "Nh7W4ufWYjyE7tQx8vxbYFVGiVQyDtFHMwTJuA94cB0";
+            };
+            claims = {
+              enableSSHCA = true;
+            };
+          }
+          {
+            type = "JWK";
+            name = "nixos.plato-splunk.media";
+            key = {
+              "use" = "sig";
+              "kty" = "EC";
+              "kid" = "a0gFjUpg-3LbloOKHC0KqxfAcTnyr8yV-b0gXb2QLDo";
+              "crv" = "P-256";
+              "alg" = "ES256";
+              "x" = "bHB9No_-BM7vng2OasKbaV5vaF0owAnx5fCEee94dhc";
+              "y" = "hI4jchAOkIl4AnaZWBZ8jOAxc-9ul4HkJPwmr6Qj-Pk";
+            };
             claims = {
               enableSSHCA = true;
             };

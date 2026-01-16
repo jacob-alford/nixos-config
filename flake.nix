@@ -74,7 +74,7 @@
             {
               name = "remote-build-augustus";
               help = "Rebuild Augustus over ssh";
-              command = "nixos-rebuild --target-host jacob@augustus.neko-bicolor.ts.net switch --flake .#augustus --sudo --ask-sudo-password";
+              command = "nixos-rebuild --target-host jacob@augustus.plato-splunk.media switch --flake .#augustus --sudo --ask-sudo-password";
             }
           ];
         };
@@ -120,6 +120,7 @@
               home-manager.nixosModules.home-manager
               ./hosts/augustus
               ./shared/services/postgres.nix
+              ./shared/services/ssh-cert-renewer.nix
               sops-nix.nixosModules.sops
               nixvim.nixosModules.nixvim
               quadlet-nix.nixosModules.quadlet

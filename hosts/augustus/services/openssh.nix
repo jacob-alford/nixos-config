@@ -7,7 +7,7 @@
 , ...
 }:
 let
-  sshKeyName = "ssh_host_ed25519";
+  sshKeyName = "ssh_host_ed25519_key";
 in
 {
   services.openssh = {
@@ -33,9 +33,7 @@ in
   services.ssh-cert-renewer = {
     inherit sshKeyName;
     enable = true;
-    certificateDomain = "augustus.plato-splunk.media";
-    kanidmInstanceUrl = "https://idm.plato-splunk.media";
-    serviceAccountName = "step_ssh_host_augustus";
-    passwordFile = config.sops.secrets.step_ca_ssh_host_augustus_provisioner_passphrase.path;
+    serviceName = "augustus.plato-splunk.media";
+    passwordFile = config.sops.secrets.step_jwk_provisioner_password.path;
   };
 }

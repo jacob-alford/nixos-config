@@ -4,7 +4,11 @@
 , pkgs
 , pkgs-unstable
 , ...
-}: {
+}:
+let
+  identityAgent = "/run/user/1000/ssh-agent";
+in
+{
   home.packages = with pkgs; [
     steam
     protonup-ng
@@ -66,24 +70,38 @@
     enable = true;
     enableDefaultConfig = false;
     matchBlocks = {
-      "exec \"step ssh check-host %s\"" = {
+      "augustus.plato-splunk.media" = {
+        inherit identityAgent;
         user = "jacob";
         forwardAgent = true;
-        userKnownHostsFile = "~/.step/ssh/known_hosts";
+        userKnownHostsFile = "~/.step/known_hosts";
         proxyCommand = "step ssh proxycommand %r %h %p --provisioner \"kanidm\"";
+        extraOptions = {
+          IdentitiesOnly = "no";
+        };
+      };
+      "exec \"step ssh check-host %h\"" = {
+        inherit identityAgent;
+        user = "jacob";
+        forwardAgent = true;
+        userKnownHostsFile = "~/.step/known_hosts";
+        proxyCommand = "step ssh proxycommand %r %h %p --provisioner \"kanidm\"";
+        extraOptions = {
+          IdentitiesOnly = "no";
+        };
       };
       "augustus.neko-bicolor.ts.net" = {
+        inherit identityAgent;
         user = "jacob";
         addKeysToAgent = "yes";
         forwardAgent = true;
-        identityAgent = "/run/user/1000/ssh-agent";
         identityFile = "~/.ssh/id_ed25519_sk";
       };
       "cicero.neko-bicolor.ts.net" = {
+        inherit identityAgent;
         user = "jacob";
         addKeysToAgent = "yes";
         forwardAgent = true;
-        identityAgent = "/run/user/1000/ssh-agent";
         identityFile = "~/.ssh/id_ed25519_sk";
       };
       "*" = {

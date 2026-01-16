@@ -31,11 +31,9 @@ in
   };
 
   services.ssh-cert-renewer = {
+    inherit sshKeyName;
     enable = true;
-    sshKeyName = sshKeyName;
-    certificateDomain = "cicero.plato-splunk.media";
-    kanidmInstanceUrl = "https://idm.plato-splunk.media";
-    serviceAccountName = "step_ssh_host_cicero";
-    passwordFile = config.sops.secrets.step_ca_ssh_host_cicero_provisioner_passphrase.path;
+    serviceName = "cicero.plato-splunk.media";
+    passwordFile = config.sops.secrets.step_jwk_provisioner_password.path;
   };
 }

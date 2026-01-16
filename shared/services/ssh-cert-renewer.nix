@@ -8,35 +8,27 @@
 }:
 let
   cfg = config.services.ssh-cert-renewer;
+  rootCert = ../../certs/alford-root.crt;
+  caUrl = "https://ca.plato-splunk.media";
 in
 {
   options.services.ssh-cert-renewer = {
     enable = lib.mkEnableOption "SSH certificate renewal service";
 
+    serviceName = lib.mkOption {
+      type = lib.types.str;
+      description = "The domain of the ssh host";
+    };
+
+    jwkPrivName = lib.mkOption {
+      type = lib.types.str;
+      description = "The JSON private key for requesting tokens";
+      default = "step-jwk-priv.json";
+    };
+
     sshKeyName = lib.mkOption {
       type = lib.types.str;
       description = "Name of the SSH key (without extension)";
-    };
-
-    certificateDomain = lib.mkOption {
-      type = lib.types.str;
-      description = "Domain name for the SSH certificate";
-    };
-
-    kanidmInstanceUrl = lib.mkOption {
-      type = lib.types.str;
-      description = "URL of the Kanidm instance";
-    };
-
-    serviceAccountName = lib.mkOption {
-      type = lib.types.str;
-      description = "Name of the Kanidm service account";
-    };
-
-    provisionerServiceAccount = lib.mkOption {
-      type = lib.types.str;
-      default = "${cfg.serviceAccountName}_provisioner";
-      description = "Name of the provisioner service account in Kanidm";
     };
 
     passwordFile = lib.mkOption {
@@ -71,36 +63,32 @@ in
         CERT_PUB="$KEY_DIR/$KEY_NAME-cert.pub"
         KEY_PUB="$KEY_DIR/$KEY_NAME.pub"
         KEY_PRIV="$KEY_DIR/$KEY_NAME"
-        CERT_DOMAIN="${cfg.certificateDomain}"
-        KANIDM_URL="${cfg.kanidmInstanceUrl}"
-        SERVICE_ACCOUNT="${cfg.serviceAccountName}"
-        PROVISIONER_ACCOUNT="${cfg.provisionerServiceAccount}"
-        PASSWORD=$(cat "${cfg.passwordFile}")
+        JWK_PRIV="$(${pkgs.step-cli}/bin/step path)/${cfg.jwkPrivName}"
 
         echo "Checking SSH certificate expiration for $CERT_PUB"
 
         if ${pkgs.step-cli}/bin/step ssh needs-renewal "$CERT_PUB"; then
           echo "Certificate needs renewal - requesting new token"
 
-          # Calculate expiration time (now + 1 hour)
-          EXPIRY=$(${pkgs.coreutils}/bin/date -u -d "+1 hour" +%Y-%m-%dT%H:%M:%SZ)
-
-          # Get new token from Kanidm
-          TOKEN=$(${pkgs.kanidm}/bin/kanidm service-account api-token generate \
-            --url "$KANIDM_URL" \
-            --name "$PROVISIONER_ACCOUNT" \
-            --password "$PASSWORD" \
-            "$SERVICE_ACCOUNT" \
-            "Renew SSH Host Cert" \
-            "$EXPIRY")
+          TOKEN=$(${pkgs.step-cli}/bin/step ca token ${cfg.serviceName} \
+            --root ${rootCert}
+            --ca-url ${caUrl}
+            --ssh
+            --host
+            --key "$JWK_PRIV"
+            --provisioner ${cfg.serviceName}
+            --password-file=${cfg.passwordFile}
+            --not-after "30m")
 
           if [ -n "$TOKEN" ]; then
             echo "Token acquired, requesting certificate renewal"
-            ${pkgs.step-cli}/bin/step ssh certificate "$CERT_DOMAIN" "$KEY_PRIV" \
+
+            ${pkgs.step-cli}/bin/step ssh certificate ${cfg.serviceName} "$KEY_PUB" \
               --host \
               --sign \
-              --provisioner "kanidm" \
+              --provisioner ${cfg.serviceName} \
               --token "$TOKEN"
+
             echo "Certificate renewed successfully via token"
           else
             echo "Failed to acquire token" >&2
@@ -108,7 +96,9 @@ in
           fi
         else
           echo "Certificate still valid - performing standard renewal"
-          ${pkgs.step-cli}/bin/step ssh renew "$CERT_PUB" "$KEY_PRIV" --force
+
+          ${pkgs.step-cli}/bin/step ssh renew --ca-url ${caUrl} --root ${rootCert} "$CERT_PUB" "$KEY_PRIV" --force
+
           echo "Certificate renewed successfully via standard renewal"
         fi
       '';

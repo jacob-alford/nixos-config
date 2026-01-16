@@ -50,6 +50,8 @@
     cifs-utils
     # Backups
     restic
+    # for ssh-ca hosting
+    step-cli
   ];
 
   environment.gnome.excludePackages = with pkgs; [
