@@ -7,7 +7,7 @@
 , ...
 }:
 let
-  sshKeyName = "ssh_host_ed25519";
+  sshKeyName = "ssh_host_ed25519_key";
 in
 {
   services.openssh = {

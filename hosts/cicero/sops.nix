@@ -25,7 +25,7 @@
     group = "step-ca";
   };
 
-  sops.secrets.step_jwt_provisioner_password = {
+  sops.secrets.step_jwk_provisioner_password = {
     owner = "root";
   };
 }

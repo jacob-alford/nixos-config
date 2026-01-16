@@ -144,6 +144,7 @@
             modules = [
               home-manager.nixosModules.home-manager
               ./hosts/cicero
+              ./shared/services/ssh-cert-renewer.nix
               sops-nix.nixosModules.sops
               nixvim.nixosModules.nixvim
             ];
