@@ -11,8 +11,7 @@
       isNormalUser = true;
       description = "Jacob Alford";
       openssh.authorizedKeys.keys = [
-        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBD6gE/UA8NCZkxImg073c02kzh3P6ohV8DLzTXQeoJanwCDJgWYMsQI55XoYqanK8n/xooiKEkt3MCIAmG9EtTs="
-        "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBGCI/SI5sFnBLVyn4kit2WXh/tgFhoblW8CNF68HLD4yMU3lN52QD0BCSe1s3R1NTnZGnGxaQANR7EEKjQBvEjc="
+        "sk-ssh-ed25519@openssh.com AAAAGnNrLXNzaC1lZDI1NTE5QG9wZW5zc2guY29tAAAAIKpkbeZ6o6dX4eTh/Ak1i9rnb41XohfQdUISJ9QQepnkAAAABHNzaDo="
       ];
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [ ];

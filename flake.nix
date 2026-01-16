@@ -69,7 +69,7 @@
             {
               name = "remote-build-cicero";
               help = "Rebuild Cicero over ssh";
-              command = "nixos-rebuild --target-host jacob@cicero.neko-bicolor.ts.net switch --flake .#cicero --sudo --ask-sudo-password";
+              command = "nixos-rebuild --target-host jacob@cicero.plato-splunk.media switch --flake .#cicero --sudo --ask-sudo-password";
             }
             {
               name = "remote-build-augustus";
@@ -102,6 +102,7 @@
               catppuccin.nixosModules.catppuccin
               nixvim.nixosModules.nixvim
               ./hosts/nixos
+              ./shared/services/ssh-cert-renewer.nix
               sops-nix.nixosModules.sops
             ];
           };

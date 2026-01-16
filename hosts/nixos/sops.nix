@@ -31,4 +31,8 @@
     '';
     owner = "root";
   };
+
+  sops.secrets.step_jwk_provisioner_password = {
+    owner = "root";
+  };
 }

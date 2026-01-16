@@ -67,17 +67,21 @@ in
 
         echo "Checking SSH certificate expiration for $CERT_PUB"
 
-        if ${pkgs.step-cli}/bin/step ssh needs-renewal "$CERT_PUB"; then
-          echo "Certificate needs renewal - requesting new token"
+        if [ ! -f "$CERT_PUB" ] || ${pkgs.step-cli}/bin/step ssh needs-renewal "$CERT_PUB"; then
+          if [ ! -f "$CERT_PUB" ]; then
+            echo "Certificate does not exist - requesting new token"
+          else
+            echo "Certificate needs renewal - requesting new token"
+          fi
 
           TOKEN=$(${pkgs.step-cli}/bin/step ca token ${cfg.serviceName} \
-            --root ${rootCert}
-            --ca-url ${caUrl}
-            --ssh
-            --host
-            --key "$JWK_PRIV"
-            --provisioner ${cfg.serviceName}
-            --password-file=${cfg.passwordFile}
+            --root ${rootCert} \
+            --ca-url ${caUrl} \
+            --ssh \
+            --host \
+            --key "$JWK_PRIV" \
+            --provisioner ${cfg.serviceName} \
+            --password-file=${cfg.passwordFile} \
             --not-after "30m")
 
           if [ -n "$TOKEN" ]; then
