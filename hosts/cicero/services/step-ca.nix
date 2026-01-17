@@ -133,6 +133,7 @@ in
             domains = [ "plato-splunk.media" ];
             claims = {
               enableSSHCA = true;
+              defaultUserSSHCertDuration = "2h";
             };
           }
           {
