@@ -12,6 +12,43 @@ let
   acmePort = 41872;
   domain = cfg.tlsDomain;
   inherit (config.security.acme.certs."${domain}") directory;
+
+  # Shared path constants
+  postgresCredsDir = "/var/lib/postgresql/certs";
+  certFiles = {
+    fullchain = "fullchain.pem";
+    key = "key.pem";
+    chain = "chain.pem";
+    rootCA = "root-ca.pem";
+  };
+
+  # Certificate update script
+  updateCertsScript = pkgs.writeShellScript "update-postgres-certs" ''
+    set -euo pipefail
+
+    # Create credentials directory if it doesn't exist
+    mkdir -p ${postgresCredsDir}
+
+    # Copy certificate files from ACME directory
+    cp ${directory}/${certFiles.fullchain} ${postgresCredsDir}/${certFiles.fullchain}
+    cp ${directory}/${certFiles.key} ${postgresCredsDir}/${certFiles.key}
+    cp ${directory}/${certFiles.chain} ${postgresCredsDir}/${certFiles.chain}
+    cp /etc/ssl/certs/ca-certificates.crt ${postgresCredsDir}/${certFiles.rootCA}
+
+    # Set ownership to postgres
+    chown postgres:postgres ${postgresCredsDir}/${certFiles.fullchain}
+    chown postgres:postgres ${postgresCredsDir}/${certFiles.key}
+    chown postgres:postgres ${postgresCredsDir}/${certFiles.chain}
+    chown postgres:postgres ${postgresCredsDir}/${certFiles.rootCA}
+
+    # Set appropriate permissions (key should be readable only by postgres)
+    chmod 644 ${postgresCredsDir}/${certFiles.fullchain}
+    chmod 600 ${postgresCredsDir}/${certFiles.key}
+    chmod 644 ${postgresCredsDir}/${certFiles.chain}
+    chmod 644 ${postgresCredsDir}/${certFiles.rootCA}
+
+    echo "Successfully updated PostgreSQL certificates"
+  '';
 in
 {
   options.services.peesequel = {
@@ -107,9 +144,9 @@ in
 
           # TLS configuration
           ssl = true;
-          ssl_cert_file = "/run/credentials/postgresql.service/fullchain.pem";
-          ssl_key_file = "/run/credentials/postgresql.service/key.pem";
-          ssl_ca_file = "/run/credentials/postgresql.service/root-ca.pem";
+          ssl_cert_file = "${postgresCredsDir}/${certFiles.fullchain}";
+          ssl_key_file = "${postgresCredsDir}/${certFiles.key}";
+          ssl_ca_file = "${postgresCredsDir}/${certFiles.rootCA}";
         }
         cfg.additionalSettings
       ];
@@ -162,20 +199,26 @@ in
         User = "postgres";
       };
 
-      script = lib.concatStringsSep "\n" (lib.mapAttrsToList (user: passwordFile: ''
-        password=$(cat ${passwordFile})
-        ${config.services.postgresql.package}/bin/psql -c "ALTER USER ${user} WITH PASSWORD '$password';"
-      '') cfg.provisionPasswords);
+      script = lib.concatStringsSep "\n" (lib.mapAttrsToList
+        (user: passwordFile: ''
+          # Use parameterized password file to avoid shell injection
+          ${config.services.postgresql.package}/bin/psql -v "ON_ERROR_STOP=1" -c "ALTER USER $(${pkgs.coreutils}/bin/printf '%s' ${lib.escapeShellArg user} | ${pkgs.gnused}/bin/sed 's/[^a-zA-Z0-9_-]//g') WITH PASSWORD \$\$$(${pkgs.coreutils}/bin/cat ${lib.escapeShellArg passwordFile})\$\$;"
+        '')
+        cfg.provisionPasswords);
     };
 
-    systemd.services.postgresql = lib.mkIf cfg.enable {
+    # Certificate update service - runs after ACME renewal
+    systemd.services.postgresql-update-certs = lib.mkIf cfg.enable {
+      description = "Update PostgreSQL TLS certificates from ACME";
+      after = [ "acme-${domain}.service" ];
+      wantedBy = [ "multi-user.target" ];
+
       serviceConfig = {
-        LoadCredential = [
-          "fullchain.pem:${directory}/fullchain.pem"
-          "key.pem:${directory}/key.pem"
-          "chain.pem:${directory}/chain.pem"
-          "root-ca.pem:/etc/ssl/certs/ca-certificates.crt"
-        ];
+        Type = "oneshot";
+        RemainAfterExit = false;
+        User = "root";
+        ExecStart = updateCertsScript;
+        ExecStartPost = "${pkgs.systemd}/bin/systemctl restart postgresql.service";
       };
     };
 
@@ -201,7 +244,7 @@ in
       listenHTTP = "127.0.0.1:${builtins.toString acmePort}";
       server = "https://ca.plato-splunk.media/acme/acme/directory";
       group = "postgres-certs";
-      reloadServices = [ "postgresql.service" ];
+      reloadServices = [ "postgresql-update-certs.service" ];
     };
   };
 }
