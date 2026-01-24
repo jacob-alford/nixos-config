@@ -244,7 +244,7 @@ in
       listenHTTP = "127.0.0.1:${builtins.toString acmePort}";
       server = "https://ca.plato-splunk.media/acme/acme/directory";
       group = "postgres-certs";
-      reloadServices = [ "postgresql-update-certs.service" ];
+      postRun = "${pkgs.systemd}/bin/systemctl start postgresql-update-certs.service";
     };
   };
 }

@@ -268,6 +268,14 @@
         };
       };
 
+      tiny-inline-diagnostic = {
+        enable = true;
+        settings = {
+          preset = "modern";
+          option.use_icons_from_diagnostic = true;
+        };
+      };
+
       notify = {
         enable = true;
         settings = {

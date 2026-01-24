@@ -34,6 +34,7 @@ in
     jq
     vlc
     step-cli
+    teams-for-linux
   ];
 
   programs.kitty = {
