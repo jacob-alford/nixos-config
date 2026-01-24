@@ -38,7 +38,8 @@
       }
 
       {
-        action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"null-ls\" end }<CR>";
+        # action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"null-ls\" end }<CR>";
+        action = "<cmd>lua vim.lsp.buf.format { async=true }<CR>";
         key = "<C-f>";
         options.desc = "Format with null-ls";
       }
@@ -227,6 +228,7 @@
       };
 
       # formatting
+
       none-ls = {
         enable = true;
 
@@ -249,19 +251,19 @@
             shfmt.enable = true;
             nixpkgs_fmt.enable = true;
             google_java_format.enable = false;
-            prettier = {
-              enable = true;
-              disableTsServerFormatter = true;
-              settings = {
-                filetypes = [
-                  "ts"
-                  "tsx"
-                  "js"
-                  "cjs"
-                  "mjs"
-                ];
-              };
-            };
+            # prettier = {
+            #   enable = true;
+            #   disableTsServerFormatter = true;
+            #   settings = {
+            #     filetypes = [
+            #       "ts"
+            #       "tsx"
+            #       "js"
+            #       "cjs"
+            #       "mjs"
+            #     ];
+            #   };
+            # };
             black = {
               enable = true;
             };
@@ -374,6 +376,19 @@
             enable = true;
             installRustc = true;
             installCargo = true;
+          };
+
+          # Formatting
+          dprint = {
+            enable = true;
+            filetypes = [
+              "ts"
+              "tsx"
+              "js"
+              "jsx"
+              "cjs"
+              "mjs"
+            ];
           };
         };
       };
