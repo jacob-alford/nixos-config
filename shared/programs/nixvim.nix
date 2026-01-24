@@ -252,6 +252,15 @@
             prettier = {
               enable = true;
               disableTsServerFormatter = true;
+              settings = {
+                filetypes = [
+                  "ts"
+                  "tsx"
+                  "js"
+                  "cjs"
+                  "mjs"
+                ];
+              };
             };
             black = {
               enable = true;
