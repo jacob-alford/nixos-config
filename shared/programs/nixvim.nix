@@ -334,6 +334,7 @@
         servers = {
           # Average webdev LSPs
           ts_ls.enable = true; # TS/JS
+          eslint.enable = true;
           cssls.enable = true; # CSS
           tailwindcss.enable = true; # TailwindCSS
           html.enable = true; # HTML
