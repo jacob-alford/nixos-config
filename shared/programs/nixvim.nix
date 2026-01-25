@@ -227,6 +227,11 @@
         enable = true;
       };
 
+      # Autocomplete/suggestions
+      mini-completion = {
+        enable = true;
+      };
+
       # formatting
 
       none-ls = {
