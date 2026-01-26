@@ -1,9 +1,11 @@
-{ inputs
-, lib
-, config
-, pkgs
-, ...
-}: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   programs.nixvim = {
     enable = true;
 
@@ -38,10 +40,11 @@
       }
 
       {
-        # action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"null-ls\" end }<CR>";
+        # action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"dprint\" end }<CR>";
+        # action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"null-ls\" or client.name == \"dprint\" end }<CR>";
         action = "<cmd>lua vim.lsp.buf.format { async=true }<CR>";
         key = "<C-f>";
-        options.desc = "Format with null-ls";
+        options.desc = "Format code";
       }
 
       {
@@ -227,61 +230,8 @@
         enable = true;
       };
 
-      # Autocomplete/suggestions
       mini-completion = {
         enable = true;
-      };
-
-      # formatting
-
-      none-ls = {
-        enable = true;
-
-        sources = {
-          code_actions = {
-            statix.enable = true;
-            gitsigns.enable = true;
-          };
-
-          diagnostics = {
-            statix.enable = true;
-            deadnix.enable = true;
-            pylint.enable = true;
-            checkstyle.enable = true;
-          };
-
-          formatting = {
-            alejandra.enable = true;
-            stylua.enable = true;
-            shfmt.enable = true;
-            nixpkgs_fmt.enable = true;
-            google_java_format.enable = false;
-            # prettier = {
-            #   enable = true;
-            #   disableTsServerFormatter = true;
-            #   settings = {
-            #     filetypes = [
-            #       "ts"
-            #       "tsx"
-            #       "js"
-            #       "cjs"
-            #       "mjs"
-            #     ];
-            #   };
-            # };
-            black = {
-              enable = true;
-            };
-            dxfmt = {
-              enable = true;
-            };
-          };
-
-          completion = {
-            luasnip.enable = true;
-            spell.enable = true;
-          };
-        };
       };
 
       tiny-inline-diagnostic = {
@@ -308,7 +258,7 @@
         enable = true;
         lintersByFt = {
           text = [ "vale" ];
-          json = [ "jsonlint" ];
+          # json = [ "jsonlint" ];
           markdown = [ "vale" ];
           rst = [ "vale" ];
           ruby = [ "ruby" ];
@@ -393,6 +343,7 @@
               "jsx"
               "cjs"
               "mjs"
+              "json"
             ];
           };
         };
