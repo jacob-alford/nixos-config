@@ -1,11 +1,13 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, pkgs-unstable
-, ...
-}: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+{
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.graphics = {
@@ -23,9 +25,13 @@
 
     # package = config.boot.kernelPackages.nvidiaPackages.latest;
     package = config.boot.kernelPackages.nvidiaPackages.mkDriver {
-      version = "580.119.02";
-      sha256_64bit = "sha256-gCD139PuiK7no4mQ0MPSr+VHUemhcLqerdfqZwE47Nc=";
-      openSha256 = "sha256-l3IQDoopOt0n0+Ig+Ee3AOcFCGJXhbH1Q1nh1TEAHTE=";
+      version = "590.48.01";
+      sha256_64bit = "sha256-ueL4BpN4FDHMh/TNKRCeEz3Oy1ClDWto1LO/LWlr1ok=";
+      openSha256 = "sha256-hECHfguzwduEfPo5pCDjWE/MjtRDhINVr4b1awFdP44=";
+
+      # version = "580.119.02";
+      # sha256_64bit = "sha256-gCD139PuiK7no4mQ0MPSr+VHUemhcLqerdfqZwE47Nc=";
+      # openSha256 = "sha256-l3IQDoopOt0n0+Ig+Ee3AOcFCGJXhbH1Q1nh1TEAHTE=";
       settingsSha256 = "";
       persistencedSha256 = "";
 
