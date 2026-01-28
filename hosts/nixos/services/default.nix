@@ -1,11 +1,13 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, pkgs-unstable
-, ...
-}: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+{
   imports = [
     ./ai.nix
     ./cifs.nix
@@ -13,6 +15,7 @@
     ./restic.nix
     ./openssh.nix
     ./gnome.nix
+    ./virtualization.nix
   ];
 
   ### Miscellaneous System Services ###

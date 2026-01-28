@@ -52,6 +52,7 @@
     restic
     # for ssh-ca hosting
     step-cli
+    podman-compose
   ];
 
   environment.gnome.excludePackages = with pkgs; [
