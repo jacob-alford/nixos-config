@@ -35,6 +35,7 @@ in
     vlc
     step-cli
     teams-for-linux
+    vivaldi
   ];
 
   programs.kitty = {
