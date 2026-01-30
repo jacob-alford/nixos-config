@@ -99,8 +99,8 @@
             ];
           };
 
-          "workbench.colorTheme" = "Catppuccin Frappé";
-          "workbench.iconTheme" = "catppuccin-frappe";
+          "workbench.colorTheme" = "Catppuccin Latte";
+          "workbench.iconTheme" = "catppuccin-latte";
         };
       };
     };
