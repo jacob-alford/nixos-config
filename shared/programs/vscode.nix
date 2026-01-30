@@ -1,10 +1,12 @@
-{ inputs
-, lib
-, config
-, pkgs
-, pkgs-unstable
-, ...
-}: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+{
   programs.vscode = {
     enable = true;
     package = pkgs-unstable.vscode;
@@ -99,8 +101,8 @@
             ];
           };
 
-          "workbench.colorTheme" = "Catppuccin Latte";
-          "workbench.iconTheme" = "catppuccin-latte";
+          "workbench.colorTheme" = "Catppuccin Frappé";
+          "workbench.iconTheme" = "catppuccin-frappe";
         };
       };
     };
