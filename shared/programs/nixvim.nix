@@ -40,14 +40,19 @@
       }
 
       {
-        # action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"dprint\" end }<CR>";
-        # action = "<cmd>lua vim.lsp.buf.format { async=true, filter = function(client) return client.name == \"null-ls\" or client.name == \"dprint\" end }<CR>";
         action = "<cmd>lua vim.lsp.buf.format { async=true }<CR>";
         key = "<C-f>";
         options.desc = "Format code";
       }
 
       {
+        action = "K";
+        key = "<leader>t";
+        options.desc = "Show type signature";
+      }
+
+      {
+      
         mode = [ "n" ];
         key = "<C-s>";
         action = ":w<CR>";
