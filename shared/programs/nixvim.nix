@@ -40,7 +40,7 @@
       }
 
       {
-        action = "<cmd>lua vim.lsp.buf.format { async=true }<CR>";
+        action = "<cmd>lua vim.lsp.buf.format({ async = true, filter = function(client) local disallowed = { ts_ls = true }; return not disallowed[client.name] end })<CR>";
         key = "<C-f>";
         options.desc = "Format code";
       }
@@ -52,7 +52,7 @@
       }
 
       {
-      
+
         mode = [ "n" ];
         key = "<C-s>";
         action = ":w<CR>";
@@ -342,13 +342,11 @@
           dprint = {
             enable = true;
             filetypes = [
-              "ts"
-              "tsx"
-              "js"
-              "jsx"
-              "cjs"
-              "mjs"
-              "json"
+              # "typescript"
+              # "typescriptreact"
+              # "javascript"
+              # "javascriptreact"
+              # "json"
             ];
           };
         };
