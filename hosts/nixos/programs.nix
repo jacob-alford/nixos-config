@@ -1,11 +1,13 @@
-{ inputs
-, outputs
-, lib
-, config
-, pkgs
-, pkgs-unstable
-, ...
-}: {
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
+}:
+{
   # For gnome
   programs.dconf.enable = true;
 
@@ -53,7 +55,15 @@
     # for ssh-ca hosting
     step-cli
     podman-compose
+    # Chromium graphics driver
+    nvidia-vaapi-driver
   ];
+
+  environment.variables = {
+    LIBVA_DRIVER_NAME = "nvidia";
+    # nvidia vaapi setting
+    NVD_BACKEND = "direct";
+  };
 
   environment.gnome.excludePackages = with pkgs; [
     orca

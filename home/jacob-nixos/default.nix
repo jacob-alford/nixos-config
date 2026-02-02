@@ -1,11 +1,13 @@
 # This is your home-manager configuration file
 # Use this to configure your home environment (it replaces ~/.config/nixpkgs/home.nix)
-{ inputs
-, lib
-, config
-, pkgs
-, ...
-}: {
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+{
   imports = [
     inputs.catppuccin.homeModules.catppuccin
     inputs.nixvim.homeManagerModules.nixvim
@@ -41,6 +43,7 @@
     EDITOR = "nvim";
     CA_URL = "https://ca.plato-splunk.media";
     CA_FINGERPRINT = "56c220018d0c65d5283d46d7c769eb471c18b2e903b205a9457261b2c52f2392";
+    # NIXOS_OZONE_WL = "1";
   };
 
   # Nicely reload system units when changing configs

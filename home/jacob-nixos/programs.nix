@@ -1,12 +1,24 @@
-{ inputs
-, lib
-, config
-, pkgs
-, pkgs-unstable
-, ...
+{
+  inputs,
+  lib,
+  config,
+  pkgs,
+  pkgs-unstable,
+  ...
 }:
 let
   identityAgent = "/run/user/1000/ssh-agent";
+  vivaldi-nvidia = pkgs.vivaldi.override {
+    commandLineArgs = [
+      # "--enable-features=AcceleratedVideoEncoder,VaapiOnNvidiaGPUs,VaapiIgnoreDriverChecks,Vulkan,DefaultANGLEVulkan,VulkanFromANGLE"
+      # "--enable-features=VaapiIgnoreDriverChecks,VaapiVideoDecoder,PlatformHEVCDecoderSupport"
+      # "--enable-features=UseMultiPlaneFormatForHardwareVideo"
+      # "--ignore-gpu-blocklist"
+      # "--enable-zero-copy"
+      # "--use-angle=opengl"
+    ];
+    enableWidevine = true;
+  };
 in
 {
   home.packages = with pkgs; [
@@ -35,7 +47,7 @@ in
     vlc
     step-cli
     teams-for-linux
-    vivaldi
+    vivaldi-nvidia
   ];
 
   programs.kitty = {
