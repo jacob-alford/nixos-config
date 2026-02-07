@@ -104,6 +104,16 @@ in
           IdentitiesOnly = "no";
         };
       };
+      "mini.plato-splunk.media" = {
+        inherit identityAgent;
+        user = "jacob";
+        forwardAgent = true;
+        userKnownHostsFile = "~/.step/known_hosts";
+        proxyCommand = "step ssh proxycommand %r %h %p --provisioner \"kanidm\"";
+        extraOptions = {
+          IdentitiesOnly = "no";
+        };
+      };
       "exec \"step ssh check-host %h\"" = {
         inherit identityAgent;
         user = "jacob";
@@ -122,6 +132,13 @@ in
         identityFile = "~/.ssh/yk_ssh_keys/id_ed25519_sk_yk3_backup";
       };
       "cicero.neko-bicolor.ts.net" = {
+        inherit identityAgent;
+        user = "jacob";
+        addKeysToAgent = "yes";
+        forwardAgent = true;
+        identityFile = "~/.ssh/yk_ssh_keys/id_ed25519_sk_yk3_backup";
+      };
+      "mini.neko-bicolor.ts.net" = {
         inherit identityAgent;
         user = "jacob";
         addKeysToAgent = "yes";
