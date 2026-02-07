@@ -143,7 +143,7 @@ in
         user = "jacob";
         addKeysToAgent = "yes";
         forwardAgent = true;
-        identityFile = "~/.ssh/yk_ssh_keys/id_ed25519_sk_yk3_backup";
+        identityFile = "~/.ssh/yk_ssh_keys/id_ed25519_sk";
       };
       "github.com" = {
         user = "git";
