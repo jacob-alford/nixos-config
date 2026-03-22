@@ -342,11 +342,12 @@
           dprint = {
             enable = true;
             filetypes = [
-              # "typescript"
-              # "typescriptreact"
-              # "javascript"
-              # "javascriptreact"
-              # "json"
+              "typescript"
+              "typescriptreact"
+              "javascript"
+              "javascriptreact"
+              "json"
+              "astro"
             ];
           };
         };

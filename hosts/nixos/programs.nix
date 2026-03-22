@@ -26,6 +26,15 @@
     polkitPolicyOwners = [ "jacob" ];
   };
 
+  environment.etc = {
+    "1password/custom_allowed_browsers" = {
+      text = ''
+        vivaldi-bin
+      '';
+      mode = "0755";
+    };
+  };
+
   programs.zsh.enable = true;
 
   services.udev.packages = with pkgs; [
